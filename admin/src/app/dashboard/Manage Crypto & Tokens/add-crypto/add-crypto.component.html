@@ -1,0 +1,131 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="box-shadow p-3">
+                    <div class="row">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <h3>New Currency Form</h3>
+
+                            <form [formGroup]="newCurrencyForm">
+                                <mat-form-field class="wd-100">
+                                    <mat-select placeholder="Choose Currency Type" name="currencyType" [(ngModel)]="currencyType" formControlName="type" selected="currencyType" (selectionChange)="changeCurrencyType($event)">
+                                        <mat-option value="crypto">Crypto Currency</mat-option>
+                                        <mat-option value="erc20">ERC 20 Currency</mat-option>
+                                        <!-- <mat-option value="erc10">ERC 10 Currency</mat-option> -->
+                                        <mat-option value="fiat">Fiat</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="controls.type.touched && controls.type.errors">
+                                        <mat-error *ngIf="controls.type.errors.required">Currency type is required!</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field class="wd-100" *ngIf="currencyType !== 'erc20'">
+                                    <input matInput placeholder="Enter Currency Title" formControlName="title">
+                                    <mat-error *ngIf="controls.title.touched && controls.title.errors">
+                                        <mat-error *ngIf="controls.title.errors.required">Currency title is required!</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <input-file class="wd-100" matTooltip="Choose Currency Logo" (files)="onPickedCurrencyImage($event)"></input-file>
+
+
+                                <mat-form-field class="wd-100" *ngIf="currencyType !== 'erc20'">
+                                    <input matInput formControlName="symbol" (keyup)="newCurrencyForm.patchValue({symbol: $event.target.value.toUpperCase()})" placeholder="Enter Currency Symbol">
+                                    <mat-error *ngIf="controls.symbol.touched && controls.symbol.errors">
+                                        <mat-error *ngIf="controls.symbol.errors.required">Currency symbol is required!</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+
+
+                                <mat-form-field class="wd-100" *ngIf="currencyType === 'erc20'">
+                                    <input matInput formControlName="contractAddress" placeholder="Enter Contract Address">
+                                    <mat-error *ngIf="controls.contractAddress.touched && controls.contractAddress.errors">
+                                        <mat-error *ngIf="controls.contractAddress.errors.required">Contact address is required!</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+
+
+
+                                <div class="row" *ngIf="currencyType !== 'fiat'">
+                                    <div class="col-md-3 mt-3">
+                                        <mat-radio-group aria-label="Select Crypto Fee" (change)="changeCryptoFeeType($event)">
+                                            <mat-radio-button class="mr-1" value="percentage" checked>Percentage</mat-radio-button>
+                                            <mat-radio-button class="" value="fiat">Fiat</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="fee" placeholder="Enter Crypto Fee">
+                                            <span *ngIf="cryptoFeeType === 'percentage'" matSuffix>%</span>
+                                            <mat-error *ngIf="controls.fee.touched && controls.fee.errors">
+                                                <mat-error *ngIf="controls.fee.errors.required">Crypto fee is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="currencyType !== 'fiat'">
+                                    <div class="col-md-3 mt-3">
+                                        <mat-radio-group aria-label="Select Exchange Fee" (change)="changeExchangeFeeType($event)">
+                                            <mat-radio-button class="mr-1" value="percentage" checked>Percentage</mat-radio-button>
+                                            <mat-radio-button class="" value="fiat">Fiat</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="exchangeFee" placeholder="Enter Exchange Fee">
+                                            <span *ngIf="exchangeFeeType === 'percentage'" matSuffix>%</span>
+                                            <mat-error *ngIf="controls.exchangeFee.touched && controls.exchangeFee.errors">
+                                                <mat-error *ngIf="controls.exchangeFee.errors.required">Exchange fee is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="currencyType !== 'fiat'">
+                                    <div class="col-md-3 mt-3">
+                                        <mat-radio-group aria-label="Select Trade Fee" (change)="changeTradeFeeType($event)">
+                                            <mat-radio-button class="mr-1" value="percentage" checked>Percentage</mat-radio-button>
+                                            <mat-radio-button class="" value="fiat">Fiat</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="tradeFee" placeholder="Enter Trade Fee">
+                                            <span *ngIf="tradeFeeType === 'percentage'" matSuffix>%</span>
+                                            <mat-error *ngIf="controls.tradeFee.touched && controls.tradeFee.errors">
+                                                <mat-error *ngIf="controls.tradeFee.errors.required">Trade fee is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+                                <mat-form-field class="wd-100">
+                                    <mat-select placeholder="Choose Currency Status" formControlName="status">
+                                        <mat-option value="Active">Active</mat-option>
+                                        <mat-option value="Inactive">Inactive</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="controls.status.touched && controls.status.errors">
+                                        <mat-error *ngIf="controls.status.errors.required">Currency status is required!</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </form>
+
+                            <div>
+                                <button type="button" mat-raised-button class="mt-3" [ngClass]="{'grad-css': newCurrencyForm.valid}" [disabled]="!newCurrencyForm.valid" style="color: #fff;" (click)="createCurrency()">Create</button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<mat-nav-list class="mt-56">
+    <a class="nav-link  text-purple cp" pageScroll [routerLink]="['']" routerLinkActive="router-link-active" translate>
+         <img src="../../../../assets/images/icons/home.png" width="25px">  Home </a>
+    <a class="nav-link  text-purple cp" pageScroll href="#contactus" translate>
+        <img src="../../../../assets/images/icons/wallet.png" width="25px"> Wallet</a>
+    <a class="nav-link  text-purple cp" pageScroll translate>
+        <img src="../../../../assets/images/icons/download.png" width="25px"> Get App</a>
+    <a class="nav-link  text-purple cp" pageScroll (click)="openLoginDialog()" translate>
+        <img src="../../../../assets/images/icons/login.png" width="25px"> Login</a>
+    <a class="nav-link  text-purple cp" pageScroll (click)="openRegisterDialog()" translate>
+        <img src="../../../../assets/images/icons/register.png" width="25px"> Register</a>
+</mat-nav-list>

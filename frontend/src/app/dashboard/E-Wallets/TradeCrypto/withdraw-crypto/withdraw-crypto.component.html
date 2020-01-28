@@ -1,0 +1,90 @@
+<div>
+    <div class="recive-opt">
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+            <mat-icon class="close-icon-width">highlight_off</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="withdrawEuro">
+    <p>Withdraw Euro</p>
+</div>
+
+
+
+
+
+
+<div *ngIf="withdrawCrypto">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img [src]="logo" alt="stellar-image" class="otp-img">
+            </div>
+            <div class="text-center mt-2">
+                <h5>
+                    {{'withdraw-msg' | translate}}
+                </h5>
+            </div>
+            <form [formGroup]="cryptoWithdrawForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="{{'amount' | translate}}" formControlName="withdrawAmount" (keyup)="convertCryptoToEuro($event.target.value)">
+                            <span matSuffix class="curren-back">{{symbol}}</span>
+                            <mat-error *ngIf="withdrawCryptoControl.withdrawAmount.touched && withdrawCryptoControl.withdrawAmount.errors">
+                                <mat-error *ngIf="withdrawCryptoControl.withdrawAmount.errors.required">{{'req-amount' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="withdrawCryptoControl.withdrawAmount.errors.pattern">{{'invalid-amount' | translate}}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" readonly formControlName="withdrawAmountInEuro" readonly [(ngModel)]="cryptoToEuro" value="{{cryptoToEuro | number:'1.1-2'}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="text-center" *ngIf="!hiddenField">
+                    <button type="button" mat-raised-button class="mt-10" [ngClass]="{'grad-css': !cryptoWithdrawForm.invalid}" [disabled]="cryptoWithdrawForm.invalid || disabledButton" (click)="sendEmailCodeForWithdrawing()">{{'get-code' | translate}}</button>
+                </div>
+
+                <div *ngIf="hiddenField">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" matInput placeholder="{{'enter-code' | translate}}" formControlName="verifyCode">
+                        <mat-error *ngIf="withdrawCryptoControl.verifyCode.touched && withdrawCryptoControl.verifyCode.errors">
+                            <mat-error *ngIf="withdrawCryptoControl.verifyCode.errors.required">{{'req-verify-code' | translate}}
+                            </mat-error>
+                            <mat-error *ngIf="withdrawCryptoControl.verifyCode.errors.pattern">{{'invallid-verify-code' | translate}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-md-12 text-center mt-5 mb-3" *ngIf="hiddenField">
+                    <button type="button" mat-raised-button [ngClass]="{'grad-css': !cryptoWithdrawForm.invalid}" [disabled]="cryptoWithdrawForm.invalid || disabledButton" (click)="withdrawalCryptoFromTrade()">{{'withdraw' | translate}}</button>
+                </div>
+
+
+                <mat-divider class="mt-5"></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>{{'current-bal' | translate}}</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>{{balance}} {{symbol}}</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ {{cryptoTradeBalanceInEuro}}</span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

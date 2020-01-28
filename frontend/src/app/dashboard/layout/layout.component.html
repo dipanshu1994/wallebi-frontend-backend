@@ -1,0 +1,134 @@
+<mat-toolbar class="desktop mat-elevation-z6">
+    <button mat-icon-button (click)="opened = !opened">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <img class="logo cp" src="/assets/images/logo.png"> <span class="spacer"></span>
+    <div class="mob-hide" style="    width: 208px;
+    margin-top: 8px;">
+        <i class="material-icons" matTooltip="Internet is {{status}}" [ngStyle]="{'color': status === 'ONLINE' ? 'green': 'red'}">
+            signal_wifi_3_bar
+        </i>
+
+    </div>
+
+
+    <div>
+        <a><img matTooltip="Notifications" class="icon-width mr-18 cp" src="/assets/images/icons/notifications.png"></a>
+        <a><img matTooltip="Messages" class="icon-width mr-18 cp" src="/assets/images/icons/message.png"></a>
+        <a (click)="logoutConfirmation()" matTooltip="Logout"><img class="icon-width mr-18 cp" src="/assets/images/icons/logout.png"></a>
+    </div>
+
+</mat-toolbar>
+<mat-sidenav-container class="main-sidenav-container">
+    <mat-sidenav [mode]="mode" [opened]="opened" [fixedInViewport]="true" [fixedTopGap]="layoutGap">
+        <mat-list id="menus">
+            <mat-card class="mar-5 no-sh">
+                <mat-card-header>
+                    <div mat-card-avatar>
+                        <div style="border-radius: 50%" class="dummy-dp">
+                            <img class="pr-wd mr-18" [attr.src]="profileImage || ''">
+                        </div>
+
+                    </div>
+                    <mat-card-title>{{firstName}}</mat-card-title>
+
+
+                </mat-card-header>
+            </mat-card>
+            <mat-accordion>
+                <mat-expansion-panel class="mt-10 box-sh-no">
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title translate>
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/account.png">
+                            </div>{{'account' | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="ml-10">
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/profile']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/profile.png">
+                            </div>{{'account-profile' | translate}}
+                        </a>
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/user-security']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/security.png">
+                            </div>{{'account-security' | translate}}
+                        </a>
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/kyc-verification']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/verification.png">
+                            </div>{{'account-verification' | translate}}
+                        </a>
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/bank-account']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/bank.png">
+                            </div>{{'account-bank-account' | translate}}
+                        </a>
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/user-referral']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/referral.png">
+                            </div>{{'account-referral-system' | translate}}
+                        </a>
+                    </div>
+                </mat-expansion-panel>
+
+
+                <mat-expansion-panel class="mt-10 box-sh-no">
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title>
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/account.png">
+                            </div>{{'wallets' | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="ml-10">
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/e-walletCrypto']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/cryptocurrencies.png">
+                            </div>{{'wallets-crypto-main' | translate}}
+                        </a>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mt-10 box-sh-no">
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title>
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/trade.png">
+                            </div>{{'trade' | translate}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="ml-10">
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/tradeCrypto']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/trade-currencies.png">
+                            </div>{{'trade-internal' | translate}}
+                        </a>
+
+                        <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/buy-sell']" (click)="closeSideNav()">
+                            <div>
+                                <img class="icon-width mr-18" src="/assets/images/icons/buy-sell.png">
+                            </div>{{'trade-buy-sell' | translate}}
+                        </a>
+
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel class="mt-10 box-sh-no">
+                    <mat-expansion-panel-header matRipple>
+                        <div>
+                            <img class="icon-width mr-18" src="/assets/images/icons/exchange.png">
+                        </div>{{'exchange' | translate}}
+                    </mat-expansion-panel-header>
+                    <a mat-list-item matRipple class="text-dec" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" href="https://wallebi.exchange" target="blank" (click)="closeSideNav()">
+                        <div>
+                            <img class="icon-width mr-18" src="/assets/images/icons/exchange.png">
+                        </div>{{'wallebi-exchange' | translate}}
+                    </a>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </mat-list>
+    </mat-sidenav>
+    <router-outlet></router-outlet>
+</mat-sidenav-container>

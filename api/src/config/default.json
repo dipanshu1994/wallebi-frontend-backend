@@ -1,0 +1,70 @@
+{
+    "btc": {
+        "protocol": "http",
+        "path": "/",
+        "port": 8332,
+        "host": "35.158.177.203",
+        "username": "bitcoin",
+        "password": "amir@bitcoin"
+    },
+    "omniusdt": {
+        "protocol": "http",
+        "path": "/",
+        "port": 8332,
+        "host": "3.121.195.57",
+        "username": "ramomnilayer",
+        "password": "WallAMB12Ty3456dfasO123PPEfbi"
+    },
+    "ltc": {
+        "protocol": "http",
+        "path": "/",
+        "port": 9332,
+        "host": "18.185.121.205",
+        "username": "ram",
+        "password": "AMB12Ty3456dfasO123PPEf"
+    },
+    "bch": {
+        "protocol": "http",
+        "path": "/",
+        "port": 8332,
+        "host": "3.120.207.1",
+        "username": "amir",
+        "password": "amir@bitcoincash"
+    },
+    "usdt": {
+        "protocol": "http",
+        "path": "",
+        "port": 18222,
+        "host": "206.189.112.9",
+        "wsPort": "8546",
+        "username": "bit_user",
+        "password": "a4213460fee4faa0ee11aabf8e5ea68e1c723a0b99e63212551579f21e3b02fc"
+
+    },
+    "eth": {
+        "protocol": "http",
+        "path": "/",
+        "port": 8545,
+        "host": "18.185.101.73",
+        "username": "",
+        "password": ""
+
+    },
+    "xrp": {
+        "protocol": "wss",
+        "path": "/",
+        "port": 51233,
+        "host": "s.altnet.rippletest.net",
+        "username": "",
+        "password": "",
+        "uri": "wss://s.altnet.rippletest.net:51233"
+    },
+    "xmr": {
+        "protocol": "http",
+        "path": "/",
+        "port": 18081,
+        "host": "18.185.69.170",
+        "username": "ram",
+        "password": "123456"
+    }
+}

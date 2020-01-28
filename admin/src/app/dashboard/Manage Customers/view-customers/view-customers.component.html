@@ -1,0 +1,81 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="table-res mt-10 mat-elevation-z8">
+            <mat-form-field class="wd-100" style="padding: 13px;">
+                <input matInput (keyup)="searchUsers($event.target.value)" placeholder="Search Users">
+            </mat-form-field>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="firstname">
+                    <th mat-header-cell *matHeaderCellDef>First Name</th>
+                    <td mat-cell *matCellDef="let record">
+                        <span class="record-icons">
+                        <mat-icon  matTooltip="Profile is {{record.approval}}" *ngIf="record.approval === 'pending'" mat-font-icon style="color: #FFCD46;">fiber_manual_record</mat-icon>
+                        <mat-icon matTooltip="Profile is {{record.approval}}" *ngIf="record.approval === 'active'" mat-font-icon style="color: #1DA462">fiber_manual_record</mat-icon>
+                        <mat-icon matTooltip="Profile is {{record.approval}}" *ngIf="record.approval === 'frozen'" mat-font-icon style="color: #DD5140">fiber_manual_record</mat-icon> </span>
+                        <span> {{ record.firstname  | titlecase }} </span></td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastname">
+                    <th mat-header-cell *matHeaderCellDef>Last Name</th>
+                    <td mat-cell *matCellDef="let record"> {{ record.lastname | titlecase }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef>Email</th>
+                    <td mat-cell *matCellDef="let record"> {{record.email}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="phone">
+                    <th mat-header-cell *matHeaderCellDef>Phone</th>
+                    <td mat-cell *matCellDef="let record"> <span *ngIf="record.userProfileId">{{record.userProfileId.mobile}}</span> </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>KYC Status</th>
+                    <td mat-cell *matCellDef="let record">
+                        <span *ngIf="record.userProfileId">
+                            <mat-icon  matTooltip="KYC is {{record.userProfileId.doc_verification}}" *ngIf="record.userProfileId.doc_verification === 'pending' && record.userProfileId.doc_verification_back === 'pending' && record.userProfileId.selfie_verification === 'pending' && record.userProfileId.address_verification === 'pending'"
+                                mat-font-icon style="color: #FFCD46">fiber_manual_record
+                            </mat-icon>
+                            <mat-icon  matTooltip="KYC is {{record.userProfileId.doc_verification}}" *ngIf="record.userProfileId.doc_verification === 'verified' && record.userProfileId.doc_verification_back === 'verified' && record.userProfileId.selfie_verification === 'verified' && record.userProfileId.address_verification === 'verified'"
+                                mat-font-icon style="color: #1DA462">fiber_manual_record
+                            </mat-icon>
+                            <mat-icon  matTooltip="KYC is {{record.userProfileId.doc_verification}}" *ngIf="record.userProfileId.doc_verification === 'rejected' && record.userProfileId.doc_verification_back === 'rejected' && record.userProfileId.selfie_verification === 'rejected' && record.userProfileId.address_verification === 'rejected'"
+                                mat-font-icon style="color: #DD5140">fiber_manual_record
+                            </mat-icon>
+                        </span>
+                    </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="registrationDate">
+                    <th mat-header-cell *matHeaderCellDef>Registration Date</th>
+                    <td mat-cell *matCellDef="let record"> {{record.date | date:'medium' }} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-icon *ngIf="record.approval === 'pending'" class="mr-4" matTooltip="Approve {{record.firstname}} {{record.lastname}} profile " class="cp mr-3" style="color: #1DA462" (click)="approveProfile(record._id, record.approval)">check_circle</mat-icon>
+                        <mat-icon *ngIf="record.approval === 'active'" class="mr-4" matTooltip="Pending {{record.firstname}} {{record.lastname}} profile " class="cp mr-3" style="color: #DD5140" (click)="approveProfile(record._id, record.approval)">cancel</mat-icon>
+                        <mat-icon matTooltip="View {{record.firstname}} {{record.lastname}} details" class="cp" [routerLink]="['/customerDetails', record._id]">remove_red_eye</mat-icon>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="dataSource.data.length === 0" class="text-center mt-2">
+                No Users found!
+            </div>
+            <mat-paginator #paginator [length]="totalUserLength" [pageSize]="limitUser" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="getAllUsers($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

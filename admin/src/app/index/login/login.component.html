@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+            <div class="card card-signin flex-row my-5">
+                <div class="card-img-left d-none d-md-flex">
+                    <!-- Background image for card set in CSS! -->
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">Sign In</h5>
+                    <form class="form-signin" [formGroup]="loginForm">
+                        <div class="example-container">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput type="text" formControlName="email" placeholder="Email address">
+                                <mat-error *ngIf="controls.email.touched && controls.email.errors">
+                                    <mat-error *ngIf="controls.email.errors.required">Email is required!</mat-error>
+                                    <mat-error *ngIf="controls.email.errors.email">Email is not valid!</mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="example-container">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" autocomplete="off">
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="controls.password.touched && controls.password.errors">
+                                    <mat-error *ngIf="controls.password.errors.required">Password is required!
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <button mat-raised-button [ngClass]="{'grad-css': loginForm.valid}" [disabled]="!loginForm.valid" (click)="loginUser()">Sign in</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

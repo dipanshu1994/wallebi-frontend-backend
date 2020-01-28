@@ -1,0 +1,239 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default   mt-16">
+                <mat-accordion>
+
+
+
+
+
+                    <mat-expansion-panel class="mt-2" *ngFor="let item of fiatCurrency" (opened)="userFiatTransactions(item.symbol)">
+                        <mat-expansion-panel-header class="p-t5" matRipple>
+                            <div class="accor-div">
+                                <span>
+                                    <img [src]="serverURL+item.logo" alt="" style="width: 40px;">
+                                </span>
+                                <span class="accor-mobile-view">
+                                    {{item.title}}
+                                </span>
+                            </div>
+                            <div class="accor-div">
+                                <p class="mt-10">
+                                    {{item.balance}} {{item.symbol}}
+                                </p>
+                            </div>
+
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <span matTooltip="Your KYC is not approved yet!" [matTooltipDisabled]="userVerified === true">
+                                                <button type="button" mat-raised-button class="ml-3" [ngClass]="{'grad-css': userVerified === true}" [disabled]="userVerified === false" (click)="openFiatTopUp(item)">{{'top-up' | translate}}</button>
+                                        </span>
+                                        <span matTooltip="Your KYC is not approved yet!" [matTooltipDisabled]="userVerified === true">
+                                                <button type="button" mat-raised-button class="ml-3" [ngClass]="{'grad-css': userVerified === true}" [disabled]="userVerified === false" (click)="openFiatWithdraw(item)">{{'withdraw' | translate}}</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class=" mt-3">
+                                    <h5>{{'list-tnx' | translate}}</h5>
+                                </div>
+
+
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchInFiat($event.target.value)" placeholder="{{'search-tnx' | translate}}">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="fiatDataSource" class="mat-elevation-z8">
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'type' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type | titlecase}} </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="trxType">
+                                            <th mat-header-cell *matHeaderCellDef> Transaction Type </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.txType | titlecase }} </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="currency">
+                                            <th mat-header-cell *matHeaderCellDef> Currency </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.currency}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="amount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'amount' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record" [ngStyle]="{'color': record.amount >= 0 ? 'green' : 'red'}">{{record.amount}}</td>
+                                        </ng-container>
+
+                                        <!-- <ng-container matColumnDef="paymentmethod">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                Payment Method
+                                            </th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.paymentmethod}} </td>
+                                        </ng-container> -->
+
+
+                                        <ng-container matColumnDef="status">
+                                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.status | titlecase}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="createdDate">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'date' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.createdDate | date:'medium'}}
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayColumnsFiat"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayColumnsFiat;"></tr>
+                                    </table>
+
+
+                                    <mat-paginator #paginator [length]="totalLengthFiat" [pageSize]="limitCoin" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="getFiatTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+
+
+
+
+                    <!-- currency start -->
+                    <mat-expansion-panel class="mt-2" *ngFor="let item of tradeCurrency; let i = index;" (opened)="userTradeTransactions(item.symbol)" [expanded]="i === expansionIndex">
+                        <mat-expansion-panel-header class="p-t5" matRipple *ngIf="item.currency.tradeStatus === true">
+                            <div class="accor-div">
+                                <span>
+                                        <img [src]="serverURL+item.logo" alt="" style="width: 40px;">
+                                    </span>
+                                <span class="accor-mobile-view">
+                                        {{item.title}}
+                                    </span>
+                            </div>
+                            <div class="accor-div">
+                                <p class="mt-10" *ngIf="item.status === true">
+                                    {{item.tradeWallets.balance}} {{item.symbol}}
+                                </p>
+                            </div>
+                            <div class="accor-div">
+                                <p class="mt-10" *ngIf="item.status === true">€ 0</p>
+                            </div>
+
+                            <div class="accor-div">
+                                <p class="mt-10">1%</p>
+                            </div>
+
+                        </mat-expansion-panel-header>
+                        <div>
+                            <div class="row mt-3 text-center" *ngIf="item.status === false">
+                                <div class="col-md-12">
+                                    <span matTooltip="{{item.currency.title}} is currentlly Inactive" [matTooltipDisabled]="item.currency.status === 'Active'">
+                                        <button type="button" mat-raised-button class="text-center ml-3" [ngClass]="{'grad-css': item.currency.status === 'Active' && item.currency.tradeStatus === true}" style="color: #fff;" [disabled]="item.currency.status === 'Inactive' && item.currency.tradeStatus === false"
+                                         (click)="activateCrypto(item.currencyId._id, item.type, item.symbol, item.title)">
+                                    {{'activate-crypto' | translate}}
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="item.status === true">
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <span matTooltip="{{item.currency.title}} is currentlly Inactive" [matTooltipDisabled]="item.currency.tradeStatus === true || item.currency.status === 'Active'">
+                                            <button type="button" mat-raised-button class="ml-3" [ngClass]="{'grad-css': item.currency.tradeStatus === true && item.currency.status === 'Active'}" [disabled]="item.currency.tradeStatus === false  || item.currency.status === 'Inactive'" (click)="openTopUpDialog(item)">{{'top-up' | translate}}
+                                            </button>
+                                        </span>
+
+                                        <span matTooltip="{{item.currency.title}} is currentlly Inactive" [matTooltipDisabled]="item.currency.tradeStatus === true || item.currency.status === 'Active'">
+                                                <button type="button" mat-raised-button class="ml-3" [ngClass]="{'grad-css': item.currency.tradeStatus === true && item.currency.status === 'Active'}" style="color: #fff;" [disabled]="item.currency.tradeStatus === false  || item.currency.status === 'Inactive'"
+                                                 (click)="openWithdrawDilaog(item)">{{'withdraw' | translate}}
+                                                </button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class=" mt-3">
+                                    <h5>{{'crypto-tnx' | translate}}</h5>
+                                </div>
+
+
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchInCrypto($event.target.value)" placeholder="{{'search-tnx' | translate}}">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="cryptoCoinDataSource" class="mat-elevation-z8">
+
+                                        <ng-container matColumnDef="currencyType">
+                                            <th mat-header-cell *matHeaderCellDef>{{'currency' | translate}}</th>
+                                            <td mat-cell *matCellDef="let record"><img [src]="serverURL+item.logo" style="width: 20px"> {{record.cryptoType}} </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'type' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type | titlecase}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="amount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'amount' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record" [ngStyle]="{'color': record.cryptoAmount >= 0 ? 'green' : 'red'}">{{record.cryptoAmount}}</td>
+                                        </ng-container>
+
+                                        <!-- <ng-container matColumnDef="hash">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'tnx-id' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txId}} </td>
+                                        </ng-container> -->
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'date' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.createdDate | date:'medium'}}
+                                            </td>
+                                        </ng-container>
+
+
+                                        <!-- <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                                            <td mat-cell *matCellDef="let record"><button mat-icon-button>
+                                                <mat-icon matTooltip="View {{record.cryptoType}} transaction details" class="cp">remove_red_eye
+                                            </mat-icon></button></td>
+                                        </ng-container> -->
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+
+
+                                    <mat-paginator #paginator [length]="totalLengthCoinTrx" [pageSize]="limitCoin" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="getCryptoTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                    <!-- currency end -->
+
+
+
+
+                </mat-accordion>
+            </div>
+        </div>
+    </div>
+</div>

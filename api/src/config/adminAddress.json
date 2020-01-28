@@ -1,0 +1,28 @@
+{
+    "btc": {
+        "name": "bitcoin_wallebiadmin_1542089184558",
+        "address": "3Jwr3g3P4Ycmted2hftc2zRYGn3mWWGhB9"
+    },
+    "eth": {
+        "name": "ethereum_wallebiadmin_1543136301891",
+        "address": "0x35512acA73D0842904AccF32CbBaD150116A93BD"
+    },
+
+    "bch": {
+        "name": "bch_wallebiadmin_1542089184622",
+        "address": "bitcoincash:pq2vvw708k4u2d8rns6kd5crgx46qm0qcvwr5epjpa"
+    },
+    "ltc": {
+        "name": "ltc_wallebiadmin_1543136301823",
+        "address": "MEPPAAi6UD1Bz7BgTH6W7P6HEXDT8Rr2Sp"
+    },
+    "omniusdt": {
+        "name": "omniusdt_wallebiadmin_1544422604824",
+        "address": "38be9rrVr8RUNWGMjKm5bEuzaaSKivNV2j"
+    },
+    "usdt": {
+        "name": "omniusdt_wallebiadmin_1544422604824",
+        "address": "38be9rrVr8RUNWGMjKm5bEuzaaSKivNV2j"
+    }
+
+}

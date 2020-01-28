@@ -1,0 +1,175 @@
+<div>
+
+    <div class="recive-opt">
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+                    <mat-icon class="close-icon-width">highlight_off</mat-icon>
+                </button>
+    </div>
+    <div class="wrapper page-inner content-fixed1" *ngIf="logo;">
+        <div class="conatiner w-100">
+            <div class="text-center mb-20">
+                <img [src]="serverURL+logo" alt="stellar-image" class="otp-img printImage">
+            </div>
+
+
+            <div *ngIf="address">
+                <div class="text-center pt-3 printqr " style="height: 235px;">
+                    <qrcode allowEmptyString="true" [qrdata]="address" [level]="'H'" usesvg="true" class="text-center pr-40"></qrcode>
+                </div>
+            </div>
+
+            <div class="word-break text-center mt-10" *ngIf="address">
+                {{address}}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="conatiner w-100">
+        <div *ngIf="imageProof">
+            <img [src]="imageProof" alt="" srcset="" class="admin-kyc-dialog">
+        </div>
+    </div>
+
+
+    <div *ngIf="rejectedReason">
+        <div class="container w-100">
+            <form [formGroup]="documnetRejectionForm">
+                <div class="text-center wd-100">
+                    <div>
+                        <mat-form-field appearance="outline" class="wd-100">
+                            <mat-label>Reason of rejection</mat-label>
+                            <textarea matInput formControlName="rejectionResosn" rows="5" placeholder="Enter the reason of documnet rejection"></textarea>
+                            <mat-icon matSuffix>sentiment_dissatisfied</mat-icon>
+                            <mat-hint>Reason of rejection</mat-hint>
+                            <mat-error *ngIf="controls.rejectionResosn.touched && controls.rejectionResosn.errors">
+                                <mat-error *ngIf="controls.rejectionResosn.errors.required">Reason of rejection is required!</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div>
+                        <button class="float-right" mat-raised-button [ngClass]="{'grad-css': documnetRejectionForm.valid}" [disabled]="!documnetRejectionForm.valid" (click)="SubmitReason()">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="transaction">
+        <div class="text-center">
+            <span *ngIf="currencyType === 'BTC'">
+                <img src="../../../assets/images/currency-icons/cryptocurrency-icon.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'ETH'">
+                <img src="../../../assets/images/currency-icons/Ethereum-ETH-icon.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'LTC'">
+                <img src="../../../assets/images/currency-icons/Litecoin-LTC-icon.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'USDT'">
+                <img src="../../../assets/images/currency-icons/Tether-USDT-icon.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'XMR'">
+                <img src="../../../assets/images/currency-icons/monero-symbol-on-white-1280.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'BCH'">
+                <img src="../../../assets/images/currency-icons/Bitcoin-Cash-BCH-icon.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'XRP'">
+                <img src="../../../assets/images/currency-icons/ripple_xrp_coin-512.png" alt="" srcset="" class="otp-img">
+            </span>
+            <span *ngIf="currencyType === 'XLM'">
+                <img src="../../../assets/images/currency-icons/stellar_xlm-512.png" alt="" srcset="" class="otp-img">
+            </span>
+            <p class="tran-status">{{ tnxStatus | titlecase }}</p>
+            <p class="tran-amount">Amount: {{ amount }}</p>
+        </div>
+        <div class=" mt-16">
+            <p class="tran-weight"> Sender:
+                <a *ngIf="currencyType === 'BTC'" href="https://www.blockchain.com/btc/address/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'ETH'" href="https://etherscan.io/address/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'USDT'" href="https://omniexplorer.info/address/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'LTC'" href="https://chain.so/address/LTC/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XMR'" href="https://monerohash.com/explorer/search?value={{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'BCH'" href="https://explorer.bitcoin.com/bch/address/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XRP'" href="https://bithomp.com/explorer/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XLM'" href="https://stellarchain.io/address/{{receiverAddress}} " target="_blank">
+                    {{receiverAddress}}
+                </a>
+            </p>
+            <p class="tran-weight">Receiver:
+                <a *ngIf="currencyType === 'BTC'" href="https://www.blockchain.com/btc/address/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'ETH'" href="https://etherscan.io/address/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'USDT'" href="https://omniexplorer.info/address/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'LTC'" href="https://chain.so/address/LTC/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XMR'" href="https://monerohash.com/explorer/search?value={{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'BCH'" href="https://explorer.bitcoin.com/bch/address/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XRP'" href="https://bithomp.com/explorer/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+                <a *ngIf="currencyType === 'XLM'" href="https://stellarchain.io/address/{{senderAddress}} " target="_blank">
+                    {{senderAddress}}
+                </a>
+            </p>
+            <p class="tran-weight">Transaction Fees: {{tnxFee}}</p>
+            <p class="tran-weight">Transaction Type: {{tnxType | titlecase}}</p>
+            <p class="word-break tran-weight">Transaction Id:
+                <a *ngIf="currencyType === 'BTC'" href="https://www.blockchain.com/btc/tx/{{txId}} " target="_blank">
+                     {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'ETH'" href="https://etherscan.io/tx/{{txId}} " target="_blank">
+                    {{txId}}
+               </a>
+                <a *ngIf="currencyType === 'LTC'" href="https://bithomp.com/explorer/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'USDT'" href="https://chain.so/tx/LTC/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'XMR'" href="https://monerohash.com/explorer/tx/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'BCH'" href="https://explorer.bitcoin.com/bch/tx/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'XRP'" href="https://bithomp.com/explorer/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+                <a *ngIf="currencyType === 'XLM'" href="https://stellarchain.io/tx/{{txId}} " target="_blank">
+                    {{txId}}
+                </a>
+            </p>
+        </div>
+    </div>
+
+
+</div>

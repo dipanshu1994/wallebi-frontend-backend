@@ -1,0 +1,57 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="table-res mt-10 mat-elevation-z8">
+            <mat-form-field class="wd-100" style="padding: 13px;">
+                <input matInput (keyup)="searchPairs($event.target.value)" placeholder="Search Pair">
+            </mat-form-field>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="no.">
+                    <th mat-header-cell *matHeaderCellDef>No.</th>
+                    <td mat-cell *matCellDef="let record; let i = index;"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pairName">
+                    <th mat-header-cell *matHeaderCellDef>Pair</th>
+                    <td mat-cell *matCellDef="let record">{{record.pairName}}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let record"> {{record.tradeType}} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let record"> {{ record.createdDate | date:'medium' }} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Provders Buy & Sell</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-checkbox class="checkbox-margin" [disabled]="record.pairId.status === false" [checked]="record.admin" matTooltip="{{record.pairName}} is currentlly Inactive for Admin" [matTooltipDisabled]="record.pairId.status === true" (change)="changeProvider($event, 'admin', record._id)">
+                            Admin</mat-checkbox>
+
+                        <mat-checkbox class="checkbox-margin" [disabled]="record.pairId.status === false" [checked]="record.b2bx" matTooltip="{{record.pairName}} is currentlly Inactive for B2BX" [matTooltipDisabled]="record.pairId.status === true" (change)="changeProvider($event, 'b2bx', record._id)">
+                            B2BX</mat-checkbox>
+
+                        <mat-checkbox class="checkbox-margin" [disabled]="record.pairId.status === false" [checked]="record.exmo" matTooltip="{{record.pairName}} is currentlly Inactive for Exmo" [matTooltipDisabled]="record.pairId.status === true" (change)="changeProvider($event, 'exmo', record._id)">
+                            Exmo</mat-checkbox>
+
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator #paginator [length]="totalLengthPair" [pageSize]="limitPair" [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 100]" showFirstLastButtons (page)="getPairProviders($event)">
+            </mat-paginator>
+
+        </div>
+    </div>
+
+</div>

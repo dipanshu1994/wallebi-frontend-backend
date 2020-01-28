@@ -1,0 +1,194 @@
+<!-- verify 2FA otp -->
+<div *ngIf="verifyLogin">
+    <form [formGroup]="verifyLoginOTPForm">
+        <mat-form-field *ngIf="hidden">
+            <input matInput formControlName="email">
+        </mat-form-field>
+        <div class="text-center">
+            <h5>
+                Verification
+            </h5>
+        </div>
+        <div class="text-center">
+            <img src="assets/images/otp.png" alt="otp-image" class="otp-img">
+        </div>
+        <div class="text-center">
+            <p>
+                We have send an OTP on your registered mobile number , Enter OTP to verify.
+            </p>
+        </div>
+        <div class="text-center">
+            <mat-form-field class=" mt-10">
+                <input type="text" matInput formControlName="smsCode" placeholder="Enter your OTP">
+                <mat-error *ngIf="controls.smsCode.touched && controls.smsCode.errors">
+                    <mat-error *ngIf="controls.smsCode.errors.required">OTP is required!</mat-error>
+                    <mat-error *ngIf="controls.smsCode.errors.pattern">Your OTP is not valid!</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+    </form>
+    <div class="text-center">
+        <button mat-raised-button [ngClass]="{'grad-css': verifyLoginOTPForm.valid}" [disabled]="!verifyLoginOTPForm.valid" (click)="VerifyLoginOTP()">Verify</button>
+
+    </div>
+</div>
+
+
+<!-- verify change password otp -->
+<div *ngIf="changePassword">
+    <form [formGroup]="verifyChangePasswordForm">
+        <div class="text-center">
+            <h5>
+                Change Password
+            </h5>
+        </div>
+        <div class="text-center">
+            <img src="assets/images/otp.png" alt="otp-image" class="otp-img">
+        </div>
+        <div class="text-center">
+            <p>
+                We have send an OTP on your registered mobile number , Enter OTP to verify.
+            </p>
+        </div>
+        <mat-form-field *ngIf="hidden">
+            <input matInput formControlName="oldPassword">
+        </mat-form-field>
+        <mat-form-field *ngIf="hidden">
+            <input matInput formControlName="newPassword">
+        </mat-form-field>
+
+        <div class="text-center">
+            <mat-form-field class=" mt-10">
+                <input type="text" matInput formControlName="smsCode" placeholder="Enter Your OTP">
+                <mat-error *ngIf="Changecontrols.smsCode.touched && Changecontrols.smsCode.errors">
+                    <mat-error *ngIf="Changecontrols.smsCode.errors.required">OTP is required!</mat-error>
+                    <mat-error *ngIf="Changecontrols.smsCode.errors.pattern">Your OTP is not valid!</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="text-center">
+        <button mat-raised-button [ngClass]="{'grad-css': verifyChangePasswordForm.valid}" [disabled]="!verifyChangePasswordForm.valid" (click)="VerifyChnagePasswordOTP()">Verify</button>
+
+
+    </div>
+</div>
+
+
+<!-- upload your profile picture -->
+
+
+<div *ngIf="updateProfile" class="custom-index">
+    <div class="form-group">
+        <div class="cropper-div">
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [roundCropper]="true" [maintainAspectRatio]="true" [resizeToWidth]="0" format="png" resizeToWidth="320px" cropperMinWidth="320px" cropperMinHeight="320px" alignImage="center" (imageCropped)="imageCropped($event)"
+                (imageLoaded)="imageLoaded()" (loadImageFailed)="loadImageFailed()" class="cropper-css">
+            </image-cropper>
+        </div>
+    </div>
+    <div class="mt-65">
+        <button mat-raised-button class="ml-2" style="float: right" (click)="updateProfilePicture()">Upload</button>
+        <button mat-raised-button (click)="closeUpdateProfile()">Cancel</button>
+    </div>
+</div>
+
+
+
+<!-- share your referral code -->
+
+
+<div *ngIf="shareReferral">
+    <div class="text-center">
+        <h3>Share Referral</h3>
+    </div>
+    <div class="row mt-16">
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="facebook" (click)="shareFacebook()" class="bg-trans"><img src="../../assets/images/icons/facebook.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="twitter" (click)="shareTwitter()" class="bg-trans"><img src="../../assets/images/icons/twitter.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="telegram" (click)="shareTelegram()" class="bg-trans"><img src="../../assets/images/icons/telegram.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="whatsapp" (click)="shareWhatsApp()" class="bg-trans"><img src="../../assets/images/icons/whatsapp.png" style="width: 40px;"></button>
+        </div>
+    </div>
+    <div class="row mt-16">
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="google+" (click)="shareGooglePlus()" class="bg-trans"><img src="../../assets/images/icons/google+.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="linkedin" (click)="shareLinkedIN()" class="bg-trans"><img src="../../assets/images/icons/linkedin.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="vk" (click)="shareVK()" class="bg-trans"><img src="../../assets/images/icons/vk.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="ok" (click)="shareOk()" class="bg-trans"><img src="../../assets/images/icons/ok.png" style="width: 40px;"></button>
+        </div>
+    </div>
+    <div class="row mt-16">
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="reddit" (click)="shareReddit()" class="bg-trans"><img src="../../assets/images/icons/reddit.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="tumbler" (click)="shareTumbller()" class="bg-trans"><img src="../../assets/images/icons/tumbler.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="live journal" (click)="shareLiveJournal()" class="bg-trans"><img src="../../assets/images/icons/livejournal.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab class="bg-trans"><img src="../../assets/images/icons/man.png" style="width: 40px;" ></button>
+        </div>
+    </div>
+    <div class="row mt-16">
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="viber" (click)="shareViber()" class="bg-trans"><img src="../../assets/images/icons/viber.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="facebook work" (click)="shareFacebookWork()" class="bg-trans"><img src="../../assets/images/icons/workplace.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="line" (click)="shareLine()" class="bg-trans"><img src="../../assets/images/icons/line.png" style="width: 40px;"></button>
+        </div>
+        <div class="col-md-3 col-sm-3 col-custom">
+            <button mat-mini-fab matTooltip="email" (click)="shareMail()" class="bg-trans"><img src="../../assets/images/icons/mail.png" style="width: 40px;"></button>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="resendEmail">
+    <form [formGroup]="resendEmailForm">
+        <p>Your email address is not Verified. do you want to resend verification email?</p>
+        <div class="text-center">
+            <button mat-button class="grad-css mr-2" [disabled]="resendEmailForm.invalid" (click)="resendEmailToUser()">Resend</button>
+            <button mat-button class="cancel-btn" (click)="closeUpdateProfile()">Cancel</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+<div *ngIf="logout">
+    <p>Are you sure to want to logout?</p>
+    <div class="text-center">
+        <button mat-button class="grad-css mr-2" (click)="onLogout()">Logout</button>
+        <button mat-button class="cancel-btn" (click)="closeUpdateProfile()">Cancel</button>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="logoutInactivity" class="text-center">
+    <img src="../../assets/images/inactivity.png" alt="" class="img-fluid">
+    <p class="inactive-text">Your session is expired due to inactivity, please login again.</p>
+    <button mat-button class="grad-css" (click)="openLoginDialog()">Home</button>
+</div>

@@ -1,0 +1,133 @@
+.idea
+
+# compiled output
+/frontend/dist-api
+/frontend/tmp
+/frontend/out-tsc
+
+# dependencies
+/frontend/node_modules
+
+# IDEs and editors
+/frontend.idea
+/frontend/.project
+/frontend/.classpath
+/frontend/.c9/
+/frontend/*.launch
+/frontend/.settings/
+/frontend/*.sublime-workspace
+
+# IDE - VSCode
+/frontend/.vscode/*
+/frontend/!.vscode/settings.json
+/frontend/!.vscode/tasks.json
+/frontend/!.vscode/launch.json
+/frontend/!.vscode/extensions.json
+
+# misc
+/frontend/.sass-cache
+/frontend/connect.lock
+/frontend/coverage
+/frontend/libpeerconnection.log
+/frontend/npm-debug.log
+/frontend/yarn-error.log
+/frontend/testem.log
+/frontend/typings
+
+# e2e
+/frontend/e2e/*.js
+/frontend/e2e/*.map
+
+# System Files
+/frontend/.DS_Store
+/frontend/Thumbs.db
+
+
+
+# compiled output
+/api/dist
+/api/dist-api
+/api/tmp
+/api/out-tsc
+
+# dependencies
+/api/node_modules
+
+# IDEs and editors
+/api.idea
+/api/.project
+/api/.classpath
+/api/.c9/
+/api/*.launch
+/api/.settings/
+/api/*.sublime-workspace
+
+# IDE - VSCode
+/api/.vscode/*
+/api/!.vscode/settings.json
+/api/!.vscode/tasks.json
+/api/!.vscode/launch.json
+/api/!.vscode/extensions.json
+
+# misc
+/api/.sass-cache
+/api/connect.lock
+/api/coverage
+/api/libpeerconnection.log
+/api/npm-debug.log
+/api/yarn-error.log
+/api/testem.log
+/api/typings
+
+# e2e
+/api/e2e/*.js
+/api/e2e/*.map
+
+# System Files
+/api/.DS_Store
+/api/Thumbs.db
+
+
+# compiled output
+/admin/dist-admin
+/admin/tmp
+/admin/out-tsc
+
+# dependencies
+/admin/node_modules
+
+# IDEs and editors
+/admin.idea
+/admin/.project
+/admin/.classpath
+/admin/.c9/
+/admin/*.launch
+/admin/.settings/
+/admin/*.sublime-workspace
+
+# IDE - VSCode
+/admin/.vscode/*
+/admin/!.vscode/settings.json
+/admin/!.vscode/tasks.json
+/admin/!.vscode/launch.json
+/admin/!.vscode/extensions.json
+
+# misc
+/admin/.sass-cache
+/admin/connect.lock
+/admin/coverage
+/admin/libpeerconnection.log
+/admin/npm-debug.log
+/admin/yarn-error.log
+/admin/testem.log
+/admin/typings
+
+# e2e
+/admin/e2e/*.js
+/admin/e2e/*.map
+
+# System Files
+/admin/Thumbs.db
+/admin/.DS_Store
+
+/npm-debug.log

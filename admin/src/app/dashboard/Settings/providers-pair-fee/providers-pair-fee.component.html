@@ -1,0 +1,109 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="table-res mt-10 mat-elevation-z8">
+            <mat-form-field class="wd-100" style="padding: 13px;">
+                <input matInput (keyup)="searchPair($event.target.value)" placeholder="Search Pair">
+            </mat-form-field>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="pairName">
+                    <th mat-header-cell *matHeaderCellDef>Pair Name</th>
+                    <td mat-cell *matCellDef="let record">
+                        {{record.pairName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="adminBuyFee">
+                    <th mat-header-cell *matHeaderCellDef>Admin Buy Fee</th>
+                    <td mat-cell *matCellDef="let record"> {{record.adminBuyFee}}
+                        <ng-container *ngIf="record.adminBuyFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="adminSellFee">
+                    <th mat-header-cell *matHeaderCellDef>Admin Sell Fee</th>
+                    <td mat-cell *matCellDef="let record"> {{record.adminSellFee}}
+                        <ng-container *ngIf="record.adminSellFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="b2bxBuyFee">
+                    <th mat-header-cell *matHeaderCellDef>B2BX Buy Fee</th>
+                    <td mat-cell *matCellDef="let record"> {{record.b2bxBuyFee}}
+                        <ng-container *ngIf="record.b2bxBuyFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="b2bxSellFee">
+                    <th mat-header-cell *matHeaderCellDef>B2BX Sell Fee</th>
+                    <td mat-cell *matCellDef="let record">
+                        {{record.b2bxSellFee}}
+                        <ng-container *ngIf="record.b2bxSellFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="exmoBuyFee">
+                    <th mat-header-cell *matHeaderCellDef>Exmo Buy Fee</th>
+                    <td mat-cell *matCellDef="let record"> {{record.exmoBuyFee}}
+                        <ng-container *ngIf="record.exmoBuyFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="exmoSellFee">
+                    <th mat-header-cell *matHeaderCellDef>Exmo Sell Fee</th>
+                    <td mat-cell *matCellDef="let record">
+                        {{record.exmoSellFee}}
+                        <ng-container *ngIf="record.exmoSellFeein === 'percentage'; ">
+                            %
+                        </ng-container>
+
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let record">
+                        {{record.createdAt | date:'medium' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-icon matTooltip="Edit {{record.pairName}} Pair" class="cp mr-2" style="color: #1DA462; font-size: 2.0em;" mwlConfirmationPopover popoverTitle="Edit Pair" popoverMessage="are you sure to want to edit?" placement="top" (confirm)="redirectAfterConfirmation(record._id)"
+                            (cancel)="cancelClicked = true">
+                            edit
+                        </mat-icon>
+                        <mat-slide-toggle [checked]="record.status === true" (change)="changePairStatus($event, record._id)"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator #paginator [length]="totalPairLength" [pageSize]="limitPair" [pageSizeOptions]="[25, 50, 100, 150, 250, 350, 500]" showFirstLastButtons (page)="changePair($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

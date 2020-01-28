@@ -1,0 +1,47 @@
+<div>
+
+    <div class="recive-opt">
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+            <mat-icon class="close-icon-width">highlight_off</mat-icon>
+        </button>
+    </div>
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center mb-20" *ngIf="receive">
+                <img [src]="logo" alt="stellar-image" class="otp-img printImage">
+            </div>
+
+            <div>
+                <div class="text-center pt-3 printqr" style="height: 235px;">
+                    <qrcode allowEmptyString="true" [qrdata]="receiverAddress" [level]="'H'" usesvg="true" class="text-center pr-40"></qrcode>
+                </div>
+            </div>
+
+            <div class="text-center mt-10" *ngIf="receive">
+                Your {{title}} address
+            </div>
+
+            <div class="word-break text-center mt-10">
+                {{receiverAddress}}
+            </div>
+
+
+            <div class="recive-opt mt-3">
+                <div class="accor-div text-center">
+                    <mat-icon class="icon-size cp hover-ic" matTooltip="copy address" (click)="copyAddress(receiverAddress)">description
+                    </mat-icon>
+                </div>
+                <div class="accor-div text-center">
+                    <mat-icon class="icon-size cp hover-ic" matTooltip="print address" (click)="printAddress()">print</mat-icon>
+                </div>
+                <div class="accor-div text-center">
+                    <mat-icon class="icon-size cp hover-ic" matTooltip="send on mail" (click)="shareOnGmail()">mail</mat-icon>
+                </div>
+                <div class="accor-div text-center">
+                    <mat-icon class="icon-size cp hover-ic" matTooltip="connect to explorer" (click)="connectToExplorer(receiverAddress)">link</mat-icon>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

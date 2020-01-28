@@ -1,0 +1,7 @@
+::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: #2fa00a !important;
+}
+
+::ng-deep.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: rgba(46, 169, 6, 0.54) !important;
+}

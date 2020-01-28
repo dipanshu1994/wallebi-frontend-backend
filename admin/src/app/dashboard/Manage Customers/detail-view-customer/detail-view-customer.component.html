@@ -1,0 +1,705 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="box-shadow p-3">
+                    <div class="row">
+
+                        <h3><span class="mr-2 mat-icons-posstion cp" [routerLink]="['/view-customers']">
+                                <mat-icon matTooltip="Back">arrow_back</mat-icon>
+                            </span>Basic Info</h3>
+                        <div class="profile-status">
+                            <mat-icon *ngIf="profileStatus === 'pending'" style="color: #FFCD46" matTooltip="User prfile is {{profileStatus}}">access_time</mat-icon>
+                            <mat-icon *ngIf="profileStatus === 'active'" style="color: #1DA462" matTooltip="User prfile is {{profileStatus}}">verified_user</mat-icon>
+                            <mat-icon *ngIf="profileStatus === 'frozen'" style="color: #DD5140" matTooltip="User prfile is {{profileStatus}}">cancel</mat-icon>
+                        </div>
+
+                    </div>
+                    <div class="box-body dashboard_list_man">
+                        <div class="row div-grid">
+                            <div class="col-md-5 ">
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">First
+                                        Name :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{firstName}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Last
+                                        Name :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{lastName}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Middle
+                                        Name :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{middleName}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Contact
+                                        No. :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{mobile}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Email
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{email}} <span>
+                                            <mat-icon matTooltip="Email is not verifyed" *ngIf="isemail === false"
+                                                class="mat-icons-posstion" style="color: #DD5140">clear</mat-icon>
+                                            <mat-icon matTooltip="Email is verifyed" *ngIf="isemail === true"
+                                                class="mat-icons-posstion" style="color: #1DA462">check</mat-icon>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Gender
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{gender | titlecase}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ">
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">DOB
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{day}}-{{month}}-{{year}}
+                                    </div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Address
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{address}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">City
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{city}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">Country
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{country}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">PinCode
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">{{zipCode}}</div>
+                                </div>
+                                <div class="form-group row"><label class="control-label col-md-3 col-sm-3 col-5">KYC
+                                        :</label>
+                                    <div class="col-md-9 col-sm-9 col-7 m-t-8 userdata">
+                                        <mat-icon matTooltip="KYC is {{kycStatus}} " *ngIf="kycStatus === 'pending'" mat-font-icon style="color: #FFCD46">clear</mat-icon>
+                                        <mat-icon matTooltip="KYC is {{kycStatus}} " *ngIf="kycStatus === 'verified'" mat-font-icon style="color: #1DA462">check</mat-icon>
+                                        <mat-icon matTooltip="KYC is {{kycStatus}} " *ngIf="kycStatus === 'rejected'" mat-font-icon style="color: #DD5140">clear</mat-icon>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3 text-center mb-3 mt-3">
+
+                                <img class=" user-img " [src]="profilePicture || '../../../assets/images/icons/man.png'" alt="" srcset="">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrapper page-inner content-fixed">
+    <div class=" wd-100 box-shadow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <mat-tab-group backgroundColor="primary" (selectedTabChange)="onTabChange($event)" #tabGroup class="index-tab">
+
+                            <mat-tab label="Wallets">
+                                <h4>Wallets</h4>
+                                <div class="mt-10">
+
+                                    <div class="table-res mt-10 mat-elevation-z8">
+                                        <table matSort mat-table [dataSource]="dataSource" class="">
+
+                                            <ng-container matColumnDef="title">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                                                <td mat-cell *matCellDef="let record"> <img [src]="serverURL+record.logo" alt="" style="width: 24px;" srcset=""> {{record.title }} </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="symbol">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+                                                <td mat-cell *matCellDef="let record"> {{record.symbol}} </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="balance">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Balance</th>
+                                                <td mat-cell *matCellDef="let record"> <span *ngIf="record.status;else templateBalance">{{record.balance}}</span> </td>
+                                                <ng-template #templateBalance>
+                                                    -
+                                                </ng-template>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="qr">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>QR</th>
+                                                <td mat-cell *matCellDef="let record"> <img *ngIf="record.status;else templateName" src="../../../../assets/images/icons/icons8-qr-code-24.png" class="cp" style="width: 24px;" (click)="openQrCode(record)"></td>
+                                                <ng-template #templateName>
+                                                    Not Active
+                                                </ng-template>
+                                            </ng-container>
+
+
+                                            <tr mat-header-row *matHeaderRowDef="displayWalletColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayWalletColumns;"></tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="Trade Wallets">
+                                <h4>Trade Wallets</h4>
+                                <div class="mt-10">
+                                    <div class="table-res mt-10 mat-elevation-z8">
+                                        <table matSort mat-table [dataSource]="tradeDataSource" class="">
+
+                                            <ng-container matColumnDef="title">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                                                <td mat-cell *matCellDef="let record"> <img [src]="serverURL+record.logo" alt="" style="width: 24px;" srcset=""> {{record.title }} </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="symbol">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Symbol</th>
+                                                <td mat-cell *matCellDef="let record"> {{record.symbol}} </td>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="balance">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Balance</th>
+                                                <td mat-cell *matCellDef="let record"> <span *ngIf="record.status;else templateBalance">{{record.balance}}</span> </td>
+                                                <ng-template #templateBalance>
+                                                    -
+                                                </ng-template>
+                                            </ng-container>
+
+                                            <ng-container matColumnDef="tradeStatus">
+                                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Trade Status</th>
+                                                <td mat-cell *matCellDef="let record"> <span *ngIf="record.currencyId.tradeStatus;else templateName">Active</span> </td>
+                                                <ng-template #templateName>
+                                                    Not Active
+                                                </ng-template>
+                                            </ng-container>
+
+
+                                            <tr mat-header-row *matHeaderRowDef="displayTradeWalletColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayTradeWalletColumns;"></tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </mat-tab>
+
+
+
+                            <mat-tab label="KYC">
+                                <h4>KYC Documents</h4>
+                                <div class="mt-10">
+                                    <table class="table">
+                                        <thead class="currency-card" style="border-radius: 5px;">
+                                            <tr>
+                                                <th scope="col">Document Name</th>
+                                                <th scope="col">Document Image</th>
+                                                <th scope="col">Document Status</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngIf="idProofFront">
+                                                <td>ID Proof Front</td>
+                                                <td> <img class="cp" [src]=" idProofFront || ''" class="table-img" (click)="openImageProof(idProofFront)"> </td>
+                                                <td>
+                                                    <span *ngIf="idProofFrontStatus === 'verified'" class="badge badge-pill badge-success">
+                                                        {{idProofFrontStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="idProofFrontStatus === 'rejected'" class="badge badge-pill badge-danger">
+                                                        {{idProofFrontStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="idProofFrontStatus === 'pending'" class="badge badge-pill badge-warning">
+                                                        {{idProofFrontStatus | titlecase}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span> <button class="btn-success" mat-raised-button
+                                                            (click)="verifyFrontSide()"
+                                                            [disabled]="idProofFrontStatus === 'verified'">Verify</button></span>
+                                                    <span class="ml-1"> <button class="btn-danger" mat-raised-button
+                                                            (click)="rejectFrontProof()">Reject</button></span>
+                                                </td>
+
+                                            </tr>
+                                            <tr *ngIf="idProofBack">
+                                                <td>ID Proof Back</td>
+                                                <td class=""> <img class="cp" [src]="idProofBack || ''" class="table-img" (click)="openImageProof(idProofBack)"></td>
+                                                <td>
+                                                    <span *ngIf="idProofBackStatus === 'verified'" class="badge badge-pill badge-success">
+                                                        {{idProofBackStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="idProofBackStatus === 'rejected'" class="badge badge-pill badge-danger">
+                                                        {{idProofBackStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="idProofBackStatus === 'pending'" class="badge badge-pill badge-warning">
+                                                        {{idProofBackStatus | titlecase}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span> <button class="btn-success" mat-raised-button
+                                                            (click)="verifyBackSide()"
+                                                            [disabled]="idProofBackStatus === 'verified'">Verify</button></span>
+                                                    <span class="ml-1"> <button class="btn-danger" mat-raised-button
+                                                            (click)="rejectBackProof()">Reject</button></span>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="selfie">
+                                                <td>Selfie</td>
+                                                <td> <img class="cp" [src]="selfie || ''" class="table-img" (click)="openImageProof(selfie)"> </td>
+                                                <td>
+                                                    <span *ngIf="selfieStatus === 'verified'" class="badge badge-pill badge-success">
+                                                        {{selfieStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="selfieStatus === 'rejected'" class="badge badge-pill badge-danger">
+                                                        {{selfieStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="selfieStatus === 'pending'" class="badge badge-pill badge-warning">
+                                                        {{selfieStatus | titlecase}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span> <button class="btn-success" mat-raised-button
+                                                            (click)="verifyCustomerSelfie()"
+                                                            [disabled]="selfieStatus === 'verified'">Verify</button></span>
+                                                    <span class="ml-1"> <button class="btn-danger" mat-raised-button
+                                                            (click)="rejectSelfieProof()">Reject</button></span>
+                                                </td>
+                                            </tr>
+                                            <tr *ngIf="addressProof">
+                                                <td>Address Proof</td>
+                                                <td> <img class="cp" [src]="addressProof || ''" class="table-img" (click)="openImageProof(addressProof)"> </td>
+                                                <td>
+                                                    <span *ngIf="addressProofStatus === 'verified'" class="badge badge-pill badge-success">
+                                                        {{addressProofStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="addressProofStatus === 'rejected'" class="badge badge-pill badge-danger">
+                                                        {{addressProofStatus | titlecase}}
+                                                    </span>
+                                                    <span *ngIf="addressProofStatus === 'pending'" class="badge badge-pill badge-warning">
+                                                        {{addressProofStatus | titlecase}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span> <button class="btn-success" mat-raised-button
+                                                            (click)="verifyAddressProof()"
+                                                            [disabled]="addressProofStatus === 'verified'">Verify</button></span>
+                                                    <span class="ml-1"> <button class="btn-danger" mat-raised-button
+                                                            (click)="rejectAddressProof()">Reject</button></span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="col">Disable Customer</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+
+                                                    <mat-slide-toggle [(ngModel)]="preventFromLogin" [checked]="preventFromLogin === true" (change)="disableUser($event)"></mat-slide-toggle>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </mat-tab>
+
+
+                            <mat-tab label="Bank Account">
+                                <h4>Bank Account</h4>
+                                <table class="table">
+
+                                    <thead class="currency-card" style="border-radius: 5px;">
+                                        <tr>
+                                            <th scope="col">First Name</th>
+                                            <th scope="col">Last Name</th>
+                                            <th scope="col">Mobile No.</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Bank Name</th>
+                                            <th scope="col">Branch Name</th>
+                                            <th scope="col">Card No/Swift Code</th>
+                                            <th scope="col">Currency</th>
+                                            <th scope="col">Account Proof</th>
+                                            <th scope="col">Account Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let items of bankAccount">
+                                            <td>
+                                                {{items.ac_holder_firstname}}
+                                            </td>
+                                            <td>
+                                                {{items.ac_holder_lastname}}
+                                            </td>
+                                            <td>{{items.ac_holder_moblile}}</td>
+                                            <td>
+                                                {{items.ac_holder_email}}
+                                            </td>
+                                            <td>
+                                                {{items.ac_holdername}}
+                                            </td>
+                                            <td>
+                                                {{items.branch_name}}
+                                            </td>
+                                            <td>
+                                                {{items.card_no}}
+                                            </td>
+                                            <td>
+                                                {{items.currency | titlecase}}
+                                            </td>
+                                            <td>
+                                                <img src="{{serverUrl}}/{{items.ac_statement}}" class="table-img cp" (click)="openBankImageProof(items.ac_statement)" alt="" srcset="">
+                                            </td>
+                                            <td>
+                                                <span *ngIf="items.status === 'pending'" class="badge badge-pill badge-warning">
+                                                    {{items.status | titlecase}}
+                                                </span>
+                                                <span *ngIf="items.status === 'verified'" class="badge badge-pill badge-success">
+                                                    {{items.status | titlecase}}
+                                                </span>
+                                                <span *ngIf="items.status === 'rejected'" class="badge badge-pill badge-danger">
+                                                    {{items.status | titlecase}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <mat-slide-toggle matTooltip="{{items.ac_holder_firstname}} {{items.ac_holder_lastname}}'s {{items.ac_holdername}} account is {{items.status}}" [checked]="items.status === 'verified'" [disabled]="items.status === 'rejected'" (change)="approveAccount($event, items._id)"></mat-slide-toggle>
+                                                <mat-icon matTooltip="Reject bank account" [ngClass]="{'disable':items.status === 'rejected'}" class="cp" style="color: #DD5140; font-size: 2.5em;" (click)="rejectCustomerBankAccount(items._id)">delete_forever
+                                                </mat-icon>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+
+                            <mat-tab label="Transactions">
+                                <h4>Transactions</h4>
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchAll($event.target.value)" placeholder="Search Transactions">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="transactionDataSource" class="">
+
+                                        <ng-container matColumnDef="crypto">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+                                            <td mat-cell *matCellDef="let record">
+                                                <span *ngIf="record.currencyType === 'BTC'">
+                                                    <img src="../../../assets/images/currency-icons/cryptocurrency-icon.png"
+                                                        style="width: 20px"> BTC
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'ETH'">
+                                                    <img src="../../../assets/images/currency-icons/Ethereum-ETH-icon.png"
+                                                        style="width: 20px"> ETH
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'LTC'">
+                                                    <img src="../../../assets/images/currency-icons/Litecoin-LTC-icon.png"
+                                                        style="width: 20px"> LTC
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'USDT'">
+                                                    <img src="../../../assets/images/currency-icons/Tether-USDT-icon.png"
+                                                        style="width: 20px"> USDT
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'XMR'">
+                                                    <img src="../../../assets/images/currency-icons/monero-symbol-on-white-1280.png"
+                                                        style="width: 20px"> XMR
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'BCH'">
+                                                    <img src="../../../../assets/images/currency-icons/Bitcoin-Cash-BCH-icon.png"
+                                                        style="width: 20px"> BCH
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'XRP'">
+                                                    <img src="../../../assets/images/currency-icons/ripple_xrp_coin-512.png"
+                                                        style="width: 20px"> XRP
+                                                </span>
+                                                <span *ngIf="record.currencyType === 'XLM'">
+                                                    <img src="../../../assets/images/currency-icons/stellar_xlm-512.png"
+                                                        style="width: 20px"> XLM
+                                                </span>
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="address">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.receiverAddress}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="amount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+                                            <td mat-cell *matCellDef="let record" [ngStyle]="{'color': record.trnxType === 'receive' ? 'green' : 'red'}"> {{record.amount }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.timestamp | date:'medium'}}
+                                            </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="fee">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tnx Fee</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.trnxFee}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="tnxid">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tnx Id</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txId }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                                            <td mat-cell *matCellDef="let record">
+                                                <mat-icon matTooltip="View {{record.currencyType}} transaction details" class="cp" (click)="viewTnxDetails(record)">remove_red_eye
+                                                </mat-icon>
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="tnxDisplayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: tnxDisplayedColumns;"></tr>
+                                    </table>
+                                    <!-- <div *ngIf="transactionDataSource.length === 0" class="text-center mt-2">
+                                        No transactions found!
+                                    </div> -->
+                                    <mat-paginator #paginator [length]="totalLengthTnx" [pageSize]="limitTnx" [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 100]" showFirstLastButtons (page)="getTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </mat-tab>
+
+
+
+                            <mat-tab label="Trade">
+                                <h4>Trade Transactions</h4>
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchAllTrnx($event.target.value)" placeholder="Search Transactions">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="transactionDataSourceTopup" class="">
+
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{ record.type | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="status">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.status | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                            <td mat-cell *matCellDef="let record">
+                                                {{record.createdDate | date:'medium'}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="tradeId">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>TradeId</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.tradeId}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoAmount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Amount</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap" [ngStyle]="{'color': record.cryptoAmount > 0 ? 'green' : 'red'}"> {{record.cryptoAmount }}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.cryptoType}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="txType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tnx Type</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txType }} </td>
+                                        </ng-container>
+
+
+
+                                        <tr mat-header-row *matHeaderRowDef="tnxDisplayedColumnsTopup"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: tnxDisplayedColumnsTopup;"></tr>
+                                    </table>
+                                    <!-- <div *ngIf="transactionDataSource.length === 0" class="text-center mt-2">
+                                        No transactions found!
+                                    </div> -->
+                                    <mat-paginator #paginator [length]="totalLengthTrnx" [pageSize]="limitTnx" [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 100]" showFirstLastButtons (page)="getAllTradeTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="Withdraw Requests">
+                                <h4>Withdraw Requests</h4>
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchAllTrnxs($event.target.value)" placeholder="Search Transactions">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="transactionDataSourceWithdraw" class="">
+
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="status">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Withdraw Status</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.withdrawalStatus | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                            <td mat-cell *matCellDef="let record">
+                                                {{record.createdDate | date:'medium'}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoAmount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Amount</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap" [ngStyle]="{'color': record.cryptoAmount > 0 ? 'green' : 'red'}"> {{record.cryptoAmount }}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.cryptoType}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="txType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tnx Type</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txType | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap">
+                                                <button mat-raised-button [ngClass]="{'grad-css': record.withdrawalStatus === 'pending'}" [disabled]="record.withdrawalStatus === 'completed' || disableApprove" (click)="transferCryptoToUser(record.cryptoType, record.withdrawalAmount, record._id, record.userId)">
+                                                    Approve
+                                                </button>
+                                            </td>
+                                        </ng-container>
+
+
+
+                                        <tr mat-header-row *matHeaderRowDef="tnxDisplayedColumnsWithdraw"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: tnxDisplayedColumnsWithdraw;"></tr>
+                                    </table>
+
+                                    <mat-paginator #paginator [length]="totalLengthTrnxs" [pageSize]="limitTnx" [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 100]" showFirstLastButtons (page)="getWithdrawTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="Topup">
+                                <h4>Topup</h4>
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchAllTrnxs($event.target.value)" placeholder="Search Transactions">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="transactionDataSourceTopupreq" class="">
+
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type}} </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                            <td mat-cell *matCellDef="let record">
+                                                {{record.createdDate | date:'medium'}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoAmount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Amount</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.cryptoAmount }}
+                                            </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="cryptoType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Crypto Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.cryptoType}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="txType">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tnx Type</th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txType }} </td>
+                                        </ng-container>
+
+
+
+
+
+                                        <tr mat-header-row *matHeaderRowDef="tnxDisplayedColumnsTopupreq"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: tnxDisplayedColumnsTopupreq;"></tr>
+                                    </table>
+                                    <!-- <div *ngIf="transactionDataSource.length === 0" class="text-center mt-2">
+                                        No transactions found!
+                                    </div> -->
+                                    <mat-paginator #paginator [length]="totalLengthTnx" [pageSize]="limitTnx" [pageSizeOptions]="[5, 10, 15, 20, 25, 50, 100]" showFirstLastButtons (page)="getTnx($event)">
+                                    </mat-paginator>
+                                </div>
+                            </mat-tab>
+
+                            <mat-tab label="Login Logs">
+                                <h4>Login Logs</h4>
+                                <div class="table-res mt-10 mat-elevation-z8">
+                                    <table matSort mat-table [dataSource]="dataSource" class="">
+
+                                        <ng-container matColumnDef="Browser Name">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Browser Name</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.agent }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="OS">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>OS</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.os}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="Device Type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Device Type</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type | titlecase }} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="IP Address">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>IP Address</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.ip}} </td>
+                                        </ng-container>
+                                        <ng-container matColumnDef="Mac Address">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mac Address</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.macaddress}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="Date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+                                            <td mat-cell *matCellDef="let record"> {{record.createdAt | date:'medium' }}
+                                            </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+                                    <!-- <div *ngIf="dataSource.length === 0" class="text-center mt-2">
+                                        No login logs found!
+                                    </div> -->
+                                </div>
+                            </mat-tab>
+
+
+
+                            <!-- <mat-tab label="Settings">
+                                <h4>Settings</h4>
+                            </mat-tab> -->
+
+
+                        </mat-tab-group>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

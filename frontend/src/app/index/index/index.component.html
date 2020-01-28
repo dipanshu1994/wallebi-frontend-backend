@@ -1,0 +1,259 @@
+<div class="root-container">
+    <app-top-nav (sidenavToggle)="sidenav.toggle()"></app-top-nav>
+    <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #sidenav fxHide.gt-sm>
+            <app-side-nav (sidenavClose)="sidenav.close()"></app-side-nav>
+        </mat-sidenav>
+        <mat-sidenav-content fxFlexFill>
+            <!-- banner area -->
+            <div class="banner-area banner-area-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-12 ">
+                            <h1 class="entry-title">{{'bestWay' | translate}} <span class="text-blue">{{'buy&Sell' | translate}}</span> {{'crypto&Token' | translate}}
+                            </h1>
+
+                            <p class="text-grey">{{'mainTitleSmall' | translate}}
+
+                            </p>
+                            <div class="col-md-8 p-0 col-sm-12">
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6  col-lg-6 col-sm-6">
+                            <div class="bg-img"></div>
+                            <div class="img-bg2">
+                                <img src="assets/images/banner-img.png" alt="" />
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- banner area End -->
+
+            <!-- get started area starts -->
+            <!-- <div class="get-started ">
+                <div class="container">
+                    <div class=" text-grey text-center sec-mb">
+                        <h2>{{'getStart' | translate}}</h2>
+                    </div>
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <mat-tab-group backgroundColor="primary" #tabGroup (selectedTabChange)="tabChanged($event)" class="index-tab">
+                                <mat-tab label="{{'buy' | translate}}">
+
+                                    <div class="row">
+
+
+                                        <div class="input-group col-md-5 col-sm-12 col-xs-12" style="margin: 15px 0 0 0px !important; ">
+                                            <input type="text" class="input-dec" matInput placeholder="{{'enterAmount' | translate}}">
+                                            <div class="input-group-append">
+                                                <mat-select [(value)]="crypto" class="pat-search select-css" disableOptionCentering=true>
+                                                    <mat-option value="BTC">BTC</mat-option>
+                                                    <mat-option value="LTC">LTC</mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <mat-icon class="search-icon" matSuffix>arrow</mat-icon>
+                                        </div>
+
+                                        <div class="input-group col-md-5 col-sm-12 col-xs-12" style="margin: 15px 0 0 0px !important; ">
+                                            <input type="text" class="input-dec" matInput placeholder="{{'enterAmount' | translate}}">
+                                            <div class="input-group-append">
+                                                <mat-select [(value)]="currency" class="pat-search select-css" disableOptionCentering=true>
+                                                    <mat-option value="Euro">Euro</mat-option>
+                                                    <mat-option value="Dollar">Dollar</mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <mat-icon class="search-icon" matSuffix>arrow</mat-icon>
+                                        </div>
+
+                                        <div class="col-md-2 col-sm-12 col-xs-12 con-tab-btn">
+                                            <button type="button" mat-raised-button class="blue-btn">{{'buy' | translate}}</button>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <mat-tab label="{{'sell' | translate}}">
+                                    <div class="row">
+                                        <div class="input-group col-md-5 col-sm-12 col-xs-12" style="margin: 15px 0 0 0px !important; ">
+                                            <input type="text" class="input-dec" matInput placeholder="{{'enterAmount' | translate}}">
+                                            <div class="input-group-append">
+                                                <mat-select [(value)]="crypto" class="pat-search select-css" disableOptionCentering=true>
+                                                    <mat-option value="BTC">BTC</mat-option>
+                                                    <mat-option value="LTC">LTC</mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <mat-icon class="search-icon" matSuffix>arrow</mat-icon>
+                                        </div>
+
+                                        <div class="input-group col-md-5 col-sm-12 col-xs-12" style="margin: 15px 0 0 0px !important; ">
+                                            <input type="text" class="input-dec" matInput placeholder="{{'enterAmount' | translate}}">
+                                            <div class="input-group-append">
+                                                <mat-select [(value)]="currency" class="pat-search select-css" disableOptionCentering=true>
+                                                    <mat-option value="Euro" class="option-select-tab">Euro</mat-option>
+                                                    <mat-option value="Dollar" class="option-select-tab">Dollar</mat-option>
+                                                </mat-select>
+                                            </div>
+                                            <mat-icon class="search-icon" matSuffix>arrow</mat-icon>
+                                        </div>
+
+                                        <div class="col-md-2 col-sm-12 col-xs-12 con-tab-btn">
+                                            <button type="button" mat-raised-button class="blue-btn">{{'sell' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+
+                            </mat-tab-group>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+
+            <!-- get started area ends -->
+            <!-- feature section start -->
+            <section class="blockcain-business-sec blockcain-business-v3">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-6 "> <img src="assets/images/info-img-1-left.png" class="info-img" alt="">
+
+                        </div>
+                        <!-- col end -->
+                        <div class="col-md-6 col-lg-6 col-sm-6 ">
+                            <div class="blockchain-content">
+                                <h3 class="column-title">{{'store-title' | translate}}</h3>
+                                <p>{{'store-sub-title' | translate}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- feature section end -->
+
+            <!-- feature section-2  start-->
+            <section class="blockcain-business-sec blockcain-business-v2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 col-sm-6 ">
+                            <div class="blockchain-content">
+                                <h3 class="column-title">{{'tradeTitle' | translate}}</h3>
+                                <p>{{'trade-sub-title' | translate}}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-lg-6 wow zoomIn"> <img src="assets/images/info-img-2-right.png" class="info-img1" alt="">
+
+                        </div>
+                        <!-- col end -->
+                    </div>
+                </div>
+            </section>
+            <!-- feature section-2  end-->
+
+            <!-- chart section start -->
+            <div class="container chart-section">
+                <div class=" text-grey text-center sec-mb">
+                    <h2>{{'chart-title' | translate}}</h2>
+                </div>
+                <div class="box-shadow">
+                    <ejs-chart #chartcontainer id='chartcontainer' [chartArea]='chartArea' [width]='width' align='center' style="display:block;" [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [tooltip]='tooltip' [crosshair]='crosshair' [legendSettings]='legendSettings'
+                        (load)='load($event)' (axisLabelRender)='axisLabelRender($event)'>
+                        <e-series-collection>
+                            <e-series [dataSource]='data1' type='HiloOpenClose' xName='x' high='high' [marker]='marker' low='low' open='open' close='close' name='Apple Inc' bearFillColor='#2ecd71' bullFillColor='#e74c3d'> </e-series>
+                        </e-series-collection>
+                    </ejs-chart>
+                </div>
+            </div>
+
+
+
+            <!-- chart section end -->
+
+            <!--footer starts-->
+            <div class="footer-section">
+                <!-- footer section start -->
+                <footer class="xs-footer-sec xs-footer-v3 wow animated zoomIn">
+                    <div class="container">
+
+                        <div class="footer-area">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="footer-widget">
+                                        <div class="footer-logo">
+                                            <a href="javascript:void(0)"> <img alt="footer-logo" class="logo" src="assets/images/footer-logo.png"> </a>
+                                        </div>
+                                        <p>{{'site-about-footer' | translate}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="footer-widget">
+                                        <h4 class="widget-title">{{'useLinks' | translate}}</h4>
+                                        <ul>
+                                            <li _><a href="javascript:void(0)">{{'faq' | translate}}</a></li>
+                                            <li><a href="javascript:void(0)">{{'term-use' | translate}}</a></li>
+                                            <li><a href="javascript:void(0)">{{'privacy-policy' | translate}}</a></li>
+                                            <li><a href="javascript:void(0)">{{'kyc-standed' | translate}}</a></li>
+                                            <li><a href="javascript:void(0)">{{'cookie-policy' | translate}}</a></li>
+                                        </ul>
+                                    </div>
+                                   
+                            
+                                </div>
+
+                                <!-- <div class="col-lg-3 col-sm-6 col-6">
+                                  <div class="footer-widget support">
+                                      <h4 class="widget-title">Support</h4>
+                                      <ul>
+                                          <li><a href="javascript:void(0)"> Contact Us</a></li>
+                                          <li ><a href="javascript:void(0)"> FAQ</a></li>
+                                          <li><a href="javascript:void(0)"> Support</a></li>
+                                          <li ><a href="javascript:void(0)"> Token</a></li>
+                                      </ul>
+                                  </div>
+                              </div> -->
+
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="footer-widget">
+                                        <h4 class="widget-title">{{'sub-title' | translate}}</h4>
+                                        <p>{{'subscribe-pera' | translate}}</p>
+                                        <form class="widget-subscibe ng-untouched ng-pristine ng-valid" method="get" novalidate="">
+                                            <input type="text" class="input-dec" matInput placeholder="">
+                                            <button type="button" mat-raised-button class="blue-btn btn-h">{{'sub-title' | translate }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- footer area end -->
+
+                        <!-- copyright area -->
+                        <!-- <div class="footer-copyright">
+                        <div class="social-area">
+                                <ul>
+                                    <li><img alt="logo" class="logo" src="assets/images/visa.png"></li>
+                                    <li><img alt="logo" class="logo" src="assets/images/master-card.png"></li>
+                                    <li><img alt="logo" class="logo" src="assets/images/paypal.png"></li>
+                                    <li><img alt="logo" class="logo" src="assets/images/discover.png"></li>
+                                </ul>
+                            </div>
+                </div> -->
+                    </div>
+                    <!-- container end -->
+                </footer>
+            </div>
+
+
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

@@ -1,0 +1,927 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+
+        <div class="hide-hori-stepper">
+            <mat-horizontal-stepper #stepper>
+                <mat-step [stepControl]="mobileVerificationForm" [editable]="editable.step1">
+                    <ng-template matStepLabel>{{'mobile-verify' | translate}}</ng-template>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-card>
+                                <h4>{{'mobile-verify' | translate}}</h4>
+                                <h5>{{'send-otp' | translate}}</h5>
+                                <div>
+                                    <form #f="ngForm" [formGroup]="mobileVerificationForm">
+
+
+
+
+
+
+                                        <mat-form-field class="wd-100 mobile-input">
+                                            <ngx-mat-intl-tel-input matInput
+                                                placeholder="{{'phone-number' | translate}}" [enablePlaceholder]="true"
+                                                name="phone" formControlName="mobile" #phone>
+                                            </ngx-mat-intl-tel-input>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="controls.mobile.touched && controls.mobile.errors">
+                                            <mat-error *ngIf="controls.mobile.errors.required">
+                                                {{'req-mobile' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="controls.mobile.errors.validatePhoneNumber">
+                                                {{'invalid-mobile' | translate}}</mat-error>
+                                        </mat-error>
+                                    </form>
+                                </div>
+                                <span>
+                                    <button id="sendotp" type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': mobileVerificationForm.valid }"
+                                        [disabled]="!mobileVerificationForm.valid || otp"
+                                        (click)="sendOTP()">{{'send-otps' | translate}}</button>
+
+                                    <a style="text-decoration: underline;" class="float-right cp" *ngIf="timeLeft === 0"
+                                        (click)="sendOTP()">didn't
+                                        recieve OTP?</a>
+                                    <span *ngIf="timeLeft !== 0">
+                                        <p *ngIf="otp" class="float-right">00 : {{timeLeft}}</p>
+                                    </span>
+                                </span>
+
+
+
+                            </mat-card>
+                        </div>
+
+
+                        <div class="col-md-6 margin-top-set" *ngIf="otp">
+                            <form [formGroup]="verifyOTPForm">
+                                <mat-card>
+                                    <h4>{{'enter-ver-code' | translate}}</h4>
+                                    <h5>{{'pls-enter-rec-otp' | translate}}</h5>
+                                    <div>
+                                        <mat-form-field class="wd-100">
+                                            <input matInput placeholder="{{'pls-enter-rec-otp' | translate}}"
+                                                formControlName="verifyOTP">
+                                            <mat-error
+                                                *ngIf="controlsOTP.verifyOTP.touched && controlsOTP.verifyOTP.errors">
+                                                <mat-error *ngIf="controlsOTP.verifyOTP.errors.required">
+                                                    {{'req-otp' | translate}}
+                                                </mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <button type="button" mat-raised-button
+                                            [ngClass]="{'grad-css': verifyOTPForm.valid}"
+                                            [disabled]="!verifyOTPForm.valid"
+                                            (click)="verifyOTP();">{{'mob-verify' | translate}}</button>
+                                    </div>
+                                </mat-card>
+                            </form>
+                        </div>
+                    </div>
+                </mat-step>
+
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="personalDetailsForm" [editable]="editable.step2">
+                    <form [formGroup]="personalDetailsForm">
+                        <ng-template matStepLabel>{{'personal-details' | translate}}</ng-template>
+                        <h4>{{'enter-personal-details' | translate}}</h4>
+                        <p>{{'about-personal' | translate}}</p>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'firstname' | translate}}" name="firstname"
+                                        [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}" disabled>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'lastname' | translate}}" name="lastname"
+                                        [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" disabled>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="text-center" *ngIf="!personalControls.gender.touched">
+                            <p *ngIf="rejectionReason" class="badge badge-pill badge-danger rejection-pill">
+                                {{'address-rejection-reason' | translate}}: {{rejectionReason}}</p>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <mat-select placeholder="{{'Gender' | translate}}" formControlName="gender">
+                                        <mat-option value="male">Male</mat-option>
+                                        <mat-option value="female">Female</mat-option>
+                                        <mat-option value="other">Other</mat-option>
+                                    </mat-select>
+                                    <mat-error
+                                        *ngIf="personalControls.gender.touched && personalControls.gender.errors">
+                                        <mat-error *ngIf="personalControls.gender.errors.required">
+                                            {{'req-gender' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput matInput formControlName="dob" #pickerDOB [min]="minDate"
+                                        [max]="maxDate" [matDatepicker]="pickerDOB" placeholder="{{'dob' | translate}}">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerDOB"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #pickerDOB></mat-datepicker>
+                                    <mat-error *ngIf="personalControls.dob.touched && personalControls.dob.errors">
+                                        <mat-error *ngIf="personalControls.dob.errors.required">
+                                            {{'req-dob' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('invalidDate')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('matDatepickerMax')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('matDatepickerMin')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <h4 class="mt-1">{{'enter-reg-add' | translate}}</h4>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'house-no' | translate}}" formControlName="houseNo">
+                                    <mat-error
+                                        *ngIf="personalControls.houseNo.touched && personalControls.houseNo.errors">
+                                        <mat-error *ngIf="personalControls.houseNo.errors.required">
+                                            {{'req-house-no' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.houseNo.errors.pattern">
+                                            {{'invalid-house-no' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'street' | translate}}" formControlName="street">
+                                    <mat-error
+                                        *ngIf="personalControls.street.touched && personalControls.street.errors">
+                                        <mat-error *ngIf="personalControls.street.errors.required">
+                                            {{'req-street' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.street.errors.pattern">
+                                            {{'invalid-street' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'City' | translate}}" formControlName="city">
+                                    <mat-error *ngIf="personalControls.city.touched && personalControls.city.errors">
+                                        <mat-error *ngIf="personalControls.city.errors.required">
+                                            {{'req-city' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.city.errors.pattern">
+                                            {{'invalid-city' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'dist-state' | translate}}"
+                                        formControlName="district">
+                                    <mat-error
+                                        *ngIf="personalControls.district.touched && personalControls.district.errors">
+                                        <mat-error *ngIf="personalControls.district.errors.required">
+                                            {{'req-dist' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.district.errors.pattern">
+                                            {{'invalid-dist' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'zip' | translate}}" formControlName="zipCode">
+                                    <mat-error
+                                        *ngIf="personalControls.zipCode.touched && personalControls.zipCode.errors">
+                                        <mat-error *ngIf="personalControls.zipCode.errors.required">
+                                            {{'req-zip' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.zipCode.errors.pattern">
+                                            {{'invalid-zip' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 float-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'choose-issuer' | translate}}"
+                                        formControlName="country">
+                                    <mat-error
+                                        *ngIf="personalControls.country.touched && personalControls.country.errors">
+                                        <mat-error *ngIf="personalControls.country.errors.required">
+                                            {{'req-country' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.country.errors.pattern">
+                                            {{'invalid-country' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-10">
+                            <div class="col-md-12 text-center">
+                                <h5>{{'upload-address-proof' | translate}}</h5>
+                                <p>{{'upload-size-type' | translate}}</p>
+                                <div class="form-group select-dp">
+                                    <input type="file" accept="image/*" (change)="onAddressPicked($event)">
+                                </div>
+                                <div class="form-group" *ngIf="addressPreview">
+                                    <img [src]="addressPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                </div>
+                                <div *ngIf="!rejectionReason">
+                                    <button type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': personalDetailsForm.valid}"
+                                        [disabled]="!personalDetailsForm.valid"
+                                        (click)="personalDetailsSubmit();">{{'Next' | translate}}</button>
+                                </div>
+                                <div *ngIf="rejectionReason">
+                                    <button type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': personalDetailsForm.valid}"
+                                        [disabled]="!personalDetailsForm.valid"
+                                        (click)="updatePersonalDetails()">{{'update' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="idProofForm" [editable]="editable.step3">
+                    <form [formGroup]="idProofForm">
+                        <ng-template matStepLabel>{{'id-details-and-upload' | translate}}</ng-template>
+                        <h4>{{'enter-id' | translate}}</h4>
+                        <p>{{'typeof-id' | translate}}</p>
+                        <div class="row text-center" *ngIf="!idControls.countryid.touched">
+                            <div class="m-auto">
+                                <div>
+                                    <p *ngIf="rejectionReason && anotherRejectReason"
+                                        class="badge badge-pill badge-danger rejection-pill">
+                                        {{'front-side-reject-reason' | translate}} {{rejectionReason}}</p>
+                                </div>
+                            </div>
+                            <div class="m-auto">
+                                <div>
+                                    <p *ngIf="rejectionReason && anotherRejectReason"
+                                        class="badge badge-pill badge-danger rejection-pill">
+                                        {{'back-side-reject-reason'}} {{anotherRejectReason}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <mat-select placeholder="{{'choose-issuer' | translate}}"
+                                        formControlName="countryid" (selectionChange)="chooseCountry($event)">
+                                        <mat-option *ngFor="let item of country" [value]="item.name">{{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="idControls.countryid.touched && idControls.countryid.errors">
+                                        <mat-error *ngIf="idControls.countryid.errors.required">
+                                            {{'req-country' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'id-number' | translate}}"
+                                        formControlName="idnumber">
+                                    <mat-error *ngIf="idControls.idnumber.touched && idControls.idnumber.errors">
+                                        <mat-error *ngIf="idControls.idnumber.errors.required">
+                                            {{'req-id-number' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="idControls.idnumber.errors.pattern">
+                                            {{'invalid-id-number' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="contryName !== 'Iran (Islamic Republic of)'">
+                            <h4>{{'lets-add-doc' | translate}}</h4>
+                            <p>{{'level-one-doc' | translate}}</p>
+                            <p>{{'valid-gov-doc' | translate}}</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6 text-center">
+
+                                    <p>{{'upload-size-type' | translate}}</p>
+                                    <div class="form-group select-dp">
+                                        <input type="file" name="" (change)="onFrontSidePicked($event)">
+                                    </div>
+                                    <div class="form-group" *ngIf="frontPreview">
+                                        <img [src]="frontPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                    </div>
+                                    <!-- <div>
+                                        <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                            Front
+                                            Side
+                                            Image</button>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-6 text-center">
+
+                                    <p>{{'upload-size-type' | translate}}</p>
+                                    <div class="form-group select-dp">
+                                        <input type="file" name="" (change)="onBackSidePicked($event)">
+                                    </div>
+                                    <div class="form-group" *ngIf="backPreview">
+                                        <img [src]="backPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                    </div>
+                                    <!-- <div>
+                                        <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                            Back
+                                            Side
+                                            Image</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-16">
+                            <div class="col-md-12 text-center" *ngIf="!rejectionReason && !anotherRejectReason">
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}"
+                                    [disabled]="!idProofForm.valid"
+                                    (click)=" saveIDProof();">{{'Next' | translate}}</button>
+                            </div>
+                            <div class="col-md-12 text-center" *ngIf="rejectionReason && anotherRejectReason">
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}"
+                                    [disabled]="!idProofForm.valid"
+                                    (click)=" updateIDProof();">{{'update' | translate}}</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </mat-step>
+
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="selfieForm" [editable]="editable.step4">
+                    <ng-template matStepLabel>{{'selfie-upload' | translate}}
+                    </ng-template>
+
+                    <h4>{{'selfie-upload' | translate}}</h4>
+                    <p>{{'id-type-in-selfie' | translate}}</p>
+                    <p>{{'selfie-with-date-sign' | translate}}.</p>
+                    <h4>{{'upload-selfie' | translate}}</h4>
+                    <p>{{'your-id-hold' | translate}}
+                    </p>
+                    <div class="text-center">
+                        <p *ngIf="rejectionReason && anotherRejectReason"
+                            class="badge badge-pill badge-danger rejection-pill">
+                            {{'selfie-rejection-reason' | translate}} {{rejectionReason}}</p>
+                    </div>
+                    <div class="text-center ">
+                        <div class="row mt-3 selfie-clm ">
+                            <div class="col-md-6 text-center ">
+                                <img src="/assets/images/icons/selfie-image.png " class="selfie-demo img-wd">
+
+                            </div>
+                            <div class="col-md-6 text-center ">
+
+                                <p>{{'upload-size-type' | translate}}</p>
+                                <div class="form-group select-dp ">
+                                    <input type="file" (change)="onSelfiePicked($event) ">
+                                </div>
+                                <div class="form-group " *ngIf="selfiePreview ">
+                                    <img [src]="selfiePreview || '' " alt=" " srcset=" " height="150px " width="150px ">
+                                </div>
+                                <!-- <div>
+                                    <button type="button " mat-raised-button class=" grad-css " style="color: #fff; ">Choose
+                                        Selfie
+                                        Image</button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row mt-16 ">
+                            <div class="col-md-12 text-center " *ngIf="!rejectionReason">
+                                <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}"
+                                    [disabled]="!selfieForm.valid"
+                                    (click)="saveSelfie();">{{'Next' | translate}}</button>
+                            </div>
+                            <div class="col-md-12 text-center " *ngIf="rejectionReason">
+                                <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}"
+                                    [disabled]="!selfieForm.valid"
+                                    (click)="updateSelfie();">{{'update' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-step>
+
+
+
+                <mat-step [editable]="editable.step5">
+                    <ng-template matStepLabel>{{'done' | translate}}
+                    </ng-template>
+                    <div class="text-center box-shadow p-5 cstm-radius">
+                        <h4>{{'wrapping-up' | translate}}</h4>
+                        <p>{{'thanks-kyc' | translate}}</p>
+
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+
+        </div>
+
+
+
+
+        <div class="hide-ver-stepper">
+
+            <mat-vertical-stepper #stepper>
+                <mat-step [stepControl]="mobileVerificationForm" [editable]="editable.step1">
+                    <ng-template matStepLabel>{{'mobile-verify' | translate}}</ng-template>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-card>
+                                <h4>{{'mobile-verify' | translate}}</h4>
+                                <h5>{{'send-otp' | translate}}</h5>
+                                <div>
+                                    <form #f="ngForm" [formGroup]="mobileVerificationForm">
+
+
+
+
+
+
+                                        <mat-form-field class="wd-100 mobile-input">
+                                            <ngx-mat-intl-tel-input matInput
+                                                placeholder="{{'phone-number' | translate}}" [enablePlaceholder]="true"
+                                                name="phone" formControlName="mobile" #phone>
+                                            </ngx-mat-intl-tel-input>
+                                        </mat-form-field>
+                                        <mat-error *ngIf="controls.mobile.touched && controls.mobile.errors">
+                                            <mat-error *ngIf="controls.mobile.errors.required">
+                                                {{'req-mobile' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="controls.mobile.errors.validatePhoneNumber">
+                                                {{'invalid-mobile' | translate}}</mat-error>
+                                        </mat-error>
+                                    </form>
+                                </div>
+                                <span>
+                                    <button id="sendotp" type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': mobileVerificationForm.valid }"
+                                        [disabled]="!mobileVerificationForm.valid || otp"
+                                        (click)="sendOTP()">{{'send-otps' | translate}}</button>
+
+                                    <a style="text-decoration: underline;" class="float-right cp did-otp" *ngIf="timeLeft === 0"
+                                        (click)="sendOTP()">didn't
+                                        recieve OTP?</a>
+                                    <span *ngIf="timeLeft !== 0">
+                                        <p *ngIf="otp" class="float-right">00 : {{timeLeft}}</p>
+                                    </span>
+                                </span>
+
+
+
+                            </mat-card>
+                        </div>
+
+
+                        <div class="col-md-6 margin-top-set" *ngIf="otp">
+                            <form [formGroup]="verifyOTPForm">
+                                <mat-card>
+                                    <h4>{{'enter-ver-code' | translate}}</h4>
+                                    <h5>{{'pls-enter-rec-otp' | translate}}</h5>
+                                    <div>
+                                        <mat-form-field class="wd-100">
+                                            <input matInput placeholder="{{'pls-enter-rec-otp' | translate}}"
+                                                formControlName="verifyOTP">
+                                            <mat-error
+                                                *ngIf="controlsOTP.verifyOTP.touched && controlsOTP.verifyOTP.errors">
+                                                <mat-error *ngIf="controlsOTP.verifyOTP.errors.required">
+                                                    {{'req-otp' | translate}}
+                                                </mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <button type="button" mat-raised-button
+                                            [ngClass]="{'grad-css': verifyOTPForm.valid}"
+                                            [disabled]="!verifyOTPForm.valid"
+                                            (click)="verifyOTP();">{{'mob-verify' | translate}}</button>
+                                    </div>
+                                </mat-card>
+                            </form>
+                        </div>
+                    </div>
+                </mat-step>
+
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="personalDetailsForm" [editable]="editable.step2">
+                    <form [formGroup]="personalDetailsForm">
+                        <ng-template matStepLabel>{{'personal-details' | translate}}</ng-template>
+                        <h4>{{'enter-personal-details' | translate}}</h4>
+                        <p>{{'about-personal' | translate}}</p>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'firstname' | translate}}" name="firstname"
+                                        [(ngModel)]="firstname" [ngModelOptions]="{standalone: true}" disabled>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'lastname' | translate}}" name="lastname"
+                                        [(ngModel)]="lastname" [ngModelOptions]="{standalone: true}" disabled>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="text-center" *ngIf="!personalControls.gender.touched">
+                            <p *ngIf="rejectionReason" class="badge badge-pill badge-danger rejection-pill">
+                                {{'address-rejection-reason' | translate}}: {{rejectionReason}}</p>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <mat-select placeholder="{{'Gender' | translate}}" formControlName="gender">
+                                        <mat-option value="male">Male</mat-option>
+                                        <mat-option value="female">Female</mat-option>
+                                        <mat-option value="other">Other</mat-option>
+                                    </mat-select>
+                                    <mat-error
+                                        *ngIf="personalControls.gender.touched && personalControls.gender.errors">
+                                        <mat-error *ngIf="personalControls.gender.errors.required">
+                                            {{'req-gender' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput matInput formControlName="dob" #pickerDOBMobile [min]="minDate"
+                                        [max]="maxDate" [matDatepicker]="pickerDOBMobile"
+                                        placeholder="{{'dob' | translate}}">
+                                    <mat-datepicker-toggle matSuffix [for]="pickerDOBMobile"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #pickerDOBMobile></mat-datepicker>
+                                    <mat-error *ngIf="personalControls.dob.touched && personalControls.dob.errors">
+                                        <mat-error *ngIf="personalControls.dob.errors.required">
+                                            {{'req-dob' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('invalidDate')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('matDatepickerMax')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                        <mat-error *ngIf="personalControls.dob.hasError('matDatepickerMin')">
+                                            {{'invalid-dob' | translate}}</mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <h4 class="mt-1">{{'enter-reg-add' | translate}}</h4>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'house-no' | translate}}" formControlName="houseNo">
+                                    <mat-error
+                                        *ngIf="personalControls.houseNo.touched && personalControls.houseNo.errors">
+                                        <mat-error *ngIf="personalControls.houseNo.errors.required">
+                                            {{'req-house-no' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.houseNo.errors.pattern">
+                                            {{'invalid-house-no' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'street' | translate}}" formControlName="street">
+                                    <mat-error
+                                        *ngIf="personalControls.street.touched && personalControls.street.errors">
+                                        <mat-error *ngIf="personalControls.street.errors.required">
+                                            {{'req-street' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.street.errors.pattern">
+                                            {{'invalid-street' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'City' | translate}}" formControlName="city">
+                                    <mat-error *ngIf="personalControls.city.touched && personalControls.city.errors">
+                                        <mat-error *ngIf="personalControls.city.errors.required">
+                                            {{'req-city' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.city.errors.pattern">
+                                            {{'invalid-city' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'dist-state' | translate}}"
+                                        formControlName="district">
+                                    <mat-error
+                                        *ngIf="personalControls.district.touched && personalControls.district.errors">
+                                        <mat-error *ngIf="personalControls.district.errors.required">
+                                            {{'req-dist' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.district.errors.pattern">
+                                            {{'invalid-dist' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'zip' | translate}}" formControlName="zipCode">
+                                    <mat-error
+                                        *ngIf="personalControls.zipCode.touched && personalControls.zipCode.errors">
+                                        <mat-error *ngIf="personalControls.zipCode.errors.required">
+                                            {{'req-zip' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.zipCode.errors.pattern">
+                                            {{'invalid-zip' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 float-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'choose-issuer' | translate}}"
+                                        formControlName="country">
+                                    <mat-error
+                                        *ngIf="personalControls.country.touched && personalControls.country.errors">
+                                        <mat-error *ngIf="personalControls.country.errors.required">
+                                            {{'req-country' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="personalControls.country.errors.pattern">
+                                            {{'invalid-country' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-10">
+                            <div class="col-md-12 text-center">
+                                <h5>{{'upload-address-proof' | translate}}</h5>
+                                <p>{{'upload-size-type' | translate}}</p>
+                                <div class="form-group select-dp">
+                                    <input type="file" accept="image/*" (change)="onAddressPicked($event)">
+                                </div>
+                                <div class="form-group" *ngIf="addressPreview">
+                                    <img [src]="addressPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                </div>
+                                <div *ngIf="!rejectionReason">
+                                    <button type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': personalDetailsForm.valid}"
+                                        [disabled]="!personalDetailsForm.valid"
+                                        (click)="personalDetailsSubmit();">{{'Next' | translate}}</button>
+                                </div>
+                                <div *ngIf="rejectionReason">
+                                    <button type="button" mat-raised-button
+                                        [ngClass]="{'grad-css': personalDetailsForm.valid}"
+                                        [disabled]="!personalDetailsForm.valid"
+                                        (click)="updatePersonalDetails()">{{'update' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="idProofForm" [editable]="editable.step3">
+                    <form [formGroup]="idProofForm">
+                        <ng-template matStepLabel>{{'id-details-and-upload' | translate}}</ng-template>
+                        <h4>{{'enter-id' | translate}}</h4>
+                        <p>{{'typeof-id' | translate}}</p>
+                        <div class="row text-center" *ngIf="!idControls.countryid.touched">
+                            <div class="m-auto">
+                                <div>
+                                    <p *ngIf="rejectionReason && anotherRejectReason"
+                                        class="badge badge-pill badge-danger rejection-pill">
+                                        {{'front-side-reject-reason' | translate}} {{rejectionReason}}</p>
+                                </div>
+                            </div>
+                            <div class="m-auto">
+                                <div>
+                                    <p *ngIf="rejectionReason && anotherRejectReason"
+                                        class="badge badge-pill badge-danger rejection-pill">
+                                        {{'back-side-reject-reason'}} {{anotherRejectReason}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <mat-select placeholder="{{'choose-issuer' | translate}}"
+                                        formControlName="countryid" (selectionChange)="chooseCountry($event)">
+                                        <mat-option *ngFor="let item of country" [value]="item.name">{{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="idControls.countryid.touched && idControls.countryid.errors">
+                                        <mat-error *ngIf="idControls.countryid.errors.required">
+                                            {{'req-country' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput placeholder="{{'id-number' | translate}}"
+                                        formControlName="idnumber">
+                                    <mat-error *ngIf="idControls.idnumber.touched && idControls.idnumber.errors">
+                                        <mat-error *ngIf="idControls.idnumber.errors.required">
+                                            {{'req-id-number' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="idControls.idnumber.errors.pattern">
+                                            {{'invalid-id-number' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div *ngIf="contryName !== 'Iran (Islamic Republic of)'">
+                            <h4>{{'lets-add-doc' | translate}}</h4>
+                            <p>{{'level-one-doc' | translate}}</p>
+                            <p>{{'valid-gov-doc' | translate}}</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6 text-center">
+
+                                    <p>{{'upload-size-type' | translate}}</p>
+                                    <div class="form-group select-dp">
+                                        <input type="file" name="" (change)="onFrontSidePicked($event)">
+                                    </div>
+                                    <div class="form-group" *ngIf="frontPreview">
+                                        <img [src]="frontPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                    </div>
+                                    <!-- <div>
+                                        <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                            Front
+                                            Side
+                                            Image</button>
+                                    </div> -->
+                                </div>
+                                <div class="col-md-6 text-center">
+
+                                    <p>{{'upload-size-type' | translate}}</p>
+                                    <div class="form-group select-dp">
+                                        <input type="file" name="" (change)="onBackSidePicked($event)">
+                                    </div>
+                                    <div class="form-group" *ngIf="backPreview">
+                                        <img [src]="backPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                    </div>
+                                    <!-- <div>
+                                        <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose
+                                            Back
+                                            Side
+                                            Image</button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-16">
+                            <div class="col-md-12 text-center" *ngIf="!rejectionReason && !anotherRejectReason">
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}"
+                                    [disabled]="!idProofForm.valid"
+                                    (click)=" saveIDProof();">{{'Next' | translate}}</button>
+                            </div>
+                            <div class="col-md-12 text-center" *ngIf="rejectionReason && anotherRejectReason">
+                                <button type="button" mat-raised-button [ngClass]="{'grad-css': idProofForm.valid}"
+                                    [disabled]="!idProofForm.valid"
+                                    (click)=" updateIDProof();">{{'update' | translate}}</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </mat-step>
+
+
+
+
+
+
+
+
+
+                <mat-step [stepControl]="selfieForm" [editable]="editable.step4">
+                    <ng-template matStepLabel>{{'selfie-upload' | translate}}
+                    </ng-template>
+
+                    <h4>{{'selfie-upload' | translate}}</h4>
+                    <p>{{'id-type-in-selfie' | translate}}</p>
+                    <p>{{'selfie-with-date-sign' | translate}}.</p>
+                    <h4>{{'upload-selfie' | translate}}</h4>
+                    <p>{{'your-id-hold' | translate}}
+                    </p>
+                    <div class="text-center">
+                        <p *ngIf="rejectionReason && anotherRejectReason"
+                            class="badge badge-pill badge-danger rejection-pill">
+                            {{'selfie-rejection-reason' | translate}} {{rejectionReason}}</p>
+                    </div>
+                    <div class="text-center ">
+                        <div class="row mt-3 selfie-clm ">
+                            <div class="col-md-6 text-center ">
+                                <img src="/assets/images/icons/selfie-image.png " class="selfie-demo img-wd">
+
+                            </div>
+                            <div class="col-md-6 text-center ">
+
+                                <p>{{'upload-size-type' | translate}}</p>
+                                <div class="form-group select-dp ">
+                                    <input type="file" (change)="onSelfiePicked($event) ">
+                                </div>
+                                <div class="form-group " *ngIf="selfiePreview ">
+                                    <img [src]="selfiePreview || '' " alt=" " srcset=" " height="150px " width="150px ">
+                                </div>
+                                <!-- <div>
+                                    <button type="button " mat-raised-button class=" grad-css " style="color: #fff; ">Choose
+                                        Selfie
+                                        Image</button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="row mt-16 ">
+                            <div class="col-md-12 text-center " *ngIf="!rejectionReason">
+                                <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}"
+                                    [disabled]="!selfieForm.valid"
+                                    (click)="saveSelfie();">{{'Next' | translate}}</button>
+                            </div>
+                            <div class="col-md-12 text-center " *ngIf="rejectionReason">
+                                <button type="button " mat-raised-button [ngClass]="{'grad-css': selfieForm.valid}"
+                                    [disabled]="!selfieForm.valid"
+                                    (click)="updateSelfie();">{{'update' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-step>
+
+
+
+                <mat-step [editable]="editable.step5">
+                    <ng-template matStepLabel>{{'done' | translate}}
+                    </ng-template>
+                    <div class="text-center box-shadow p-5 cstm-radius">
+                        <h4>{{'wrapping-up' | translate}}</h4>
+                        <p>{{'thanks-kyc' | translate}}</p>
+
+                    </div>
+                </mat-step>
+            </mat-vertical-stepper>
+        </div>
+
+
+
+    </div>
+</div>

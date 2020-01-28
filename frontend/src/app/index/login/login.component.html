@@ -1,0 +1,45 @@
+<div class="card-body">
+    <h5 class="card-title text-center" translate>login-title</h5>
+    <form class="form-signin" [formGroup]="loginForm">
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10">
+                <input matInput type="text" formControlName="email" placeholder="{{'email-address' | translate}}">
+                <mat-error *ngIf="controls.email.touched && controls.email.errors">
+                    <mat-error *ngIf="controls.email.errors.required">{{'req-email'| translate}}</mat-error>
+                    <mat-error *ngIf="controls.email.errors.email">{{'invalid-email' | translate}}</mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="example-container">
+            <mat-form-field class="wd-100 mt-10">
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="{{'password' | translate}}" formControlName="password" autocomplete="off">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="controls.password.touched && controls.password.errors">
+                    <mat-error *ngIf="controls.password.errors.required"> {{'req-password' | translate}}
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class=" custom-checkbox  mt-16 mb-3">
+            <mat-checkbox [checked]="remember" [disabled]="!loginForm.valid" (click)="rememberMe()" indeterminate="true"> {{'remember' | translate}} </mat-checkbox>
+        </div>
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="mb-4">
+                    <re-captcha (resolved)="resolved($event)" class="g-recaptcha"></re-captcha>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button mat-raised-button [ngClass]="{'grad-css': loginForm.valid}" [disabled]="!loginForm.valid" (click)="loginUser()">{{'sign-in' | translate}}</button>
+        </div>
+        <div>
+            <a class="d-block  mt-3 small float-left mb-3 cp" (click)="navigateRegister()" translate>need-acc</a>
+            <a class="d-block  mt-3 small float-right mb-3 cp" (click)="navigateForgot()">{{'fa-password' | translate}}</a>
+        </div>
+    </form>
+</div>

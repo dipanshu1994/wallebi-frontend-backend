@@ -1,0 +1,58 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="table-res mt-10 mat-elevation-z8">
+            <div class=m-3>
+                <button mat-raised-button class="mr-2" [routerLink]="['/new-email-template']"><mat-icon style="color: #1DA462;">add</mat-icon>Create</button>
+            </div>
+            <mat-form-field class="wd-100" style="padding: 13px;">
+                <input matInput (keyup)="searchTemplate($event.target.value)" placeholder="Search Template">
+            </mat-form-field>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="no.">
+                    <th mat-header-cell *matHeaderCellDef>No.</th>
+                    <td mat-cell *matCellDef="let record; let i = index;"> {{i+1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let record"> {{record.mailType}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="subject">
+                    <th mat-header-cell *matHeaderCellDef>Subject</th>
+                    <td mat-cell *matCellDef="let record"> {{record.subject}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let record"> {{ record.createdDate | date:'medium' }} </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-icon matTooltip="Edit {{record.mailType}} email template" class="cp mr-2" style="color: #1DA462; font-size: 2.5em;" mwlConfirmationPopover popoverTitle="Edit Email Template" popoverMessage="are you sure to want to edit?" placement="top" (confirm)="redirectAfterConfirmation(record._id)"
+                            (cancel)="cancelClicked = true">
+                            edit
+                        </mat-icon>
+                        <mat-icon matTooltip="Remove {{record.mailType}} email template " class="cp ml-2" style="color: #DD5140; font-size: 2.5em;" mwlConfirmationPopover popoverTitle="Delete Email Template" popoverMessage="are you sure to want to delete?" placement="top" (confirm)="deleteTemplate(record._id)"
+                            (cancel)="cancelClicked = true">delete_forever</mat-icon>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <!-- <div *ngIf="dataSource.data.length === 0" class="text-center mt-2">
+                No email template found!
+            </div> -->
+            <mat-paginator #paginator [length]="totalEmailLength" [pageSize]="limitEmail" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="getAllTemplate($event)">
+            </mat-paginator>
+
+        </div>
+    </div>
+
+</div>

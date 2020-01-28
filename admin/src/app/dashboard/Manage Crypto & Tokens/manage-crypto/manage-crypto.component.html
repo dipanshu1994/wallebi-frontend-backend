@@ -1,0 +1,105 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+        <div class="table-res mt-10 mat-elevation-z8">
+            <mat-form-field class="wd-100" style="padding: 13px;">
+                <input matInput (keyup)="searchCurrencies($event.target.value)" placeholder="Search Currency">
+            </mat-form-field>
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                    <td mat-cell *matCellDef="let record"> <img [src]="serverURL+record.logo" class="mr-2" style="width: 24px;" alt="" srcset=""> {{record.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Type</th>
+                    <td mat-cell *matCellDef="let record">{{ record.type | titlecase }}</td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                    <td mat-cell *matCellDef="let record">{{record.symbol}}</td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="fee">
+                    <th mat-header-cell *matHeaderCellDef>Crypto Fee</th>
+                    <td mat-cell *matCellDef="let record" (click)="editFee(record.fee)">{{record.fee}}
+                        <ng-container *ngIf="record.feein === 'percentage'; else elseTemplate">
+                            %
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            .0
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="exchangeFee">
+                    <th mat-header-cell *matHeaderCellDef>Exchange Fee</th>
+                    <td mat-cell *matCellDef="let record"> {{record.exchangeFee }}
+                        <ng-container *ngIf="record.exchangeFeein === 'percentage'; else elseTemplate">
+                            %
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            .0
+                        </ng-template>
+                    </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="tradeFee">
+                    <th mat-header-cell *matHeaderCellDef>Trade Fee</th>
+                    <td mat-cell *matCellDef="let record">{{record.tradeFee}}
+                        <ng-container *ngIf="record.tradeFeein === 'percentage'; else elseTemplate">
+                            %
+                        </ng-container>
+                        <ng-template #elseTemplate>
+                            .0
+                        </ng-template>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef>Status</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-slide-toggle [checked]="record.status === 'Active'" (change)="changeCurrencyStatus($event, record._id)"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="tradestatus">
+                    <th mat-header-cell *matHeaderCellDef>Trade Status</th>
+                    <td mat-cell *matCellDef="let record">
+                        <mat-slide-toggle [checked]="record.tradeStatus === true" (change)="changeCurrencyTradeStatus($event, record._id)"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="buy&sell">
+                    <th mat-header-cell *matHeaderCellDef>Buy & Sell</th>
+                    <td class="ml-2" mat-cell *matCellDef="let record">
+                        <mat-slide-toggle [checked]="record.buySellStatus === true" (change)="changeCurrencyBuySell($event, record._id)"></mat-slide-toggle>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let record">{{ record.createdAt | date:'medium' }}</td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div *ngIf="dataSource.data.length === 0" class="text-center mt-2">
+                No Currency found!
+            </div>
+            <mat-paginator #paginator [length]="totalCurrencyLength" [pageSize]="limitCurrency" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="changeCurrencyChoise($event)">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

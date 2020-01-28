@@ -1,0 +1,77 @@
+<div>
+    <div>
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+            <mat-icon class="close-icon-width">highlight_off</mat-icon>
+        </button>
+    </div>
+
+
+
+
+
+
+
+
+    <div *ngIf="send">
+        <div class="wrapper page-inner content-fixed">
+            <div class="conatiner w-100">
+                <div class="text-center">
+                    <img [src]="logo" alt="stellar-image" class="otp-img">
+                </div>
+                <form [formGroup]="sendCryptoForm">
+                    <mat-form-field class="wd-100 mt-10">
+                        <input type="text" formControlName="receiverAddress" matInput placeholder="{{'receiver-address' | translate}}">
+                        <mat-error *ngIf="coinControl.receiverAddress.touched && coinControl.receiverAddress.errors">
+                            <mat-error *ngIf="coinControl.receiverAddress.errors.required">{{'req-receiver-address' | translate}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <input type="text" matInput placeholder="Amount" formControlName="cryptoAmount">
+                                <span matSuffix class="curren-back">{{symbol}}</span>
+                                <mat-error *ngIf="coinControl.cryptoAmount.touched && coinControl.cryptoAmount.errors">
+                                    <mat-error *ngIf="coinControl.cryptoAmount.errors.required">{{'req-amount' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="coinControl.cryptoAmount.errors.pattern">{{'invalid-amount' | translate}}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 mt-10">
+                                <span matPrefix class="eur-back">Euro &nbsp;</span>
+                                <input type="text" matInput placeholder="Euro" readonly value="{{btcToEuro | number:'1.1-2' }}">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="col-md-12 text-center mt-5">
+                        <span>{{'trx-fee' | translate}} {{btcFee}}</span>
+                    </div> -->
+                    <div class="col-md-12 text-center mt-10 mb-3">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': sendCryptoForm.valid}" [disabled]="!sendCryptoForm.valid || disableButton" (click)="sendCryptoAmount()">{{'Send' | translate}}</button>
+                    </div>
+                    <mat-divider></mat-divider>
+                    <div class="col-md-12 text-center mt-10">
+                        <span>{{'current-bal' | translate}}</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>{{balance}} {{symbol}}</span>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <span>€ {{userBTCInEuro}}</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+<!-- disbale right click of mouse -->
+<!-- oncontextmenu="return false" -->

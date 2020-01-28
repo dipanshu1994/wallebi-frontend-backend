@@ -1,0 +1,99 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner w-100">
+
+        <mat-accordion>
+            <mat-expansion-panel class="mt-2" *ngFor="let item of adminFiat">
+                <mat-expansion-panel-header class="p-t5" matRipple>
+                    <div class="accor-div">
+                        <span>
+                          <img [src]="serverUrl+item.logo" alt="" style="width: 40px;">
+                        </span>
+                        <span>
+                          {{item.title}}
+                        </span>
+                    </div>
+                    <div class="accor-div">
+                        <p class="mt-10">
+                            {{item.balance}} {{item.symbol}}
+                        </p>
+                    </div>
+                </mat-expansion-panel-header>
+                <div>
+                    <div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <!-- <button type="button" mat-raised-button class="ml-3 grad-css" (click)="openFiatTopUp(item)">{{'top-up' | translate}}
+                                            </button>
+                                <button type="button" mat-raised-button class="ml-3 grad-css" (click)="openFiatWithdraw(item)">{{'withdraw' | translate}}</button> -->
+                            </div>
+                        </div>
+
+                        <div class=" mt-3">
+                            <h5>Transactions</h5>
+                        </div>
+
+
+                        <!-- <div class="table-res mt-10 mat-elevation-z8">
+                                    <mat-form-field class="wd-100" style="padding: 13px;">
+                                        <input matInput (keyup)="searchInCrypto($event.target.value)" placeholder="{{'search-tnx' | translate}}">
+                                    </mat-form-field>
+                                    <table matSort mat-table [dataSource]="cryptoCoinDataSource" class="mat-elevation-z8">
+
+                                        <ng-container matColumnDef="currencyType">
+                                            <th mat-header-cell *matHeaderCellDef>{{'currency' | translate}}</th>
+                                            <td mat-cell *matCellDef="let record"><img [src]="serverURL+item.logo" style="width: 20px"> {{record.cryptoType}} </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="type">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'type' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.type | titlecase}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="amount">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'amount' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record">{{record.cryptoAmount}}</td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="hash">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                                                {{'tnx-id' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record" class="wrap"> {{record.txId}} </td>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="date">
+                                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{'date' | translate}}
+                                            </th>
+                                            <td mat-cell *matCellDef="let record"> {{record.createdDate | date:'medium'}}
+                                            </td>
+                                        </ng-container>
+
+
+                                        <ng-container matColumnDef="action">
+                                            <th mat-header-cell *matHeaderCellDef>{{'action' | translate}}</th>
+                                            <td mat-cell *matCellDef="let record"><button mat-icon-button>
+                                                <mat-icon matTooltip="View {{record.cryptoType}} transaction details" class="cp">remove_red_eye
+                                            </mat-icon></button></td>
+                                        </ng-container>
+
+                                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    </table>
+
+
+                                    <mat-paginator #paginator [length]="totalLengthCoinTrx" [pageSize]="limitCoin" [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons (page)="getCryptoTnx($event)">
+                                    </mat-paginator>
+                                </div> -->
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+    </div>
+</div>

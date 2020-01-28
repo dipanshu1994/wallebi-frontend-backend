@@ -1,0 +1,194 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+        <div class="row panel panel-default p-6">
+            <div class="col-md-6">
+                <div class="panel panel-default   mt-16">
+
+                    <mat-accordion class="bank-acc">
+                        <mat-expansion-panel [expanded]="true">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{'bank-acc' | translate}} </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div *ngFor="let item of userBankCard" class="text-dec">
+                                <div class="cp" (click)="openCard(item)">
+                                    <h5>{{item.ac_holdername}}</h5>
+                                    <p>{{item.account_no}}</p>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+                </div>
+
+            </div>
+            <div class="col-md-6" *ngIf="acBankName">
+                <div class="display">
+                    <div class="bank-card">
+                        <span>
+                                       
+                                        
+                                        <p>{{acBankName}}</p>
+                                </span>
+                        <span class="float-right ">
+                                        <p>{{currency}}</p>
+                                </span>
+
+
+                        <p>{{accontHolderFirstName}} {{accontHolderLastName}}</p>
+
+                        <p>{{status}}</p>
+                        <p>{{iban}}</p>
+                        <p>{{branchName}}</p>
+                        <p *ngIf="swiftCode === undefined">{{cardNumber}}</p>
+                        <p *ngIf="cardNumber === undefined">{{swiftCode}}</p>
+
+                        <mat-slide-toggle (change)="enableDisaleCard(iban)"></mat-slide-toggle>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="panel panel-default  mt-16">
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{'reg-new-bank' | translate}}
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <h4>{{'acc-holder' | translate}}</h4>
+                    <form [formGroup]="createBankAccountForm">
+                        <div class="row mt-3">
+
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="ac_holder_firstname" placeholder="{{'firstname' | translate}}">
+                                    <mat-error *ngIf="controls.ac_holder_firstname.touched && controls.ac_holder_firstname.errors">
+                                        <mat-error *ngIf="controls.ac_holder_firstname.errors.required">{{'req-firstname' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.ac_holder_firstname.errors.pattern">{{'invalid-fname' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="ac_holder_lastname" placeholder="{{'lastname' | translate}}">
+                                    <mat-error *ngIf="controls.ac_holder_lastname.touched && controls.ac_holder_lastname.errors">
+                                        <mat-error *ngIf="controls.ac_holder_lastname.errors.required">{{'req-lastname' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.ac_holder_lastname.errors.pattern">{{'invalid-lname' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+
+
+                        <h4 class="mt-2">{{'bank-acc-details' | translate}}</h4>
+                        <div class="row mt-3">
+
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="ac_holdername" placeholder="{{'bank-name' | translate}}">
+                                    <mat-error *ngIf="controls.ac_holdername.touched && controls.ac_holdername.errors">
+                                        <mat-error *ngIf="controls.ac_holdername.errors.required">{{'req-bank-name' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.ac_holdername.errors.pattern">{{'invalid-bank-name' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="branch_name" placeholder="{{'branch-name' | translate}}">
+                                    <mat-error *ngIf="controls.branch_name.touched && controls.branch_name.errors">
+                                        <mat-error *ngIf="controls.branch_name.errors.required">{{'req-bank-branch' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.branch_name.errors.pattern">{{'invalid-bank-branch' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <mat-select placeholder="{{'choose-currency' | translate}}" formControlName="currency" [(ngModel)]="currencyType">
+                                        <mat-option value="euro">
+                                            Euro
+                                        </mat-option>
+
+                                    </mat-select>
+                                    <mat-error *ngIf="controls.currency.touched && controls.currency.errors">
+                                        <mat-error *ngIf="controls.currency.errors.required">{{'req-currency' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="swift_code" placeholder="{{'swift-code' | translate}}">
+                                    <mat-error *ngIf="controls.swift_code.touched && controls.swift_code.errors">
+                                        <mat-error *ngIf="controls.swift_code.errors.required">{{'req-swift-code' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                        </div>
+                        <div class="row mt-3">
+
+                            <div class="col-md-8 text-center">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input type="text" matInput formControlName="account_no" placeholder="{{'IBAN' | translate}}">
+                                    <mat-error *ngIf="controls.account_no.touched && controls.account_no.errors">
+                                        <mat-error *ngIf="controls.account_no.errors.required">{{'req-iban' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+
+                            </div>
+
+                        </div>
+                        <div class="row mt-10">
+                            <div class="col-md-12 text-center">
+                                <h5 class="font">{{'upload-doc' | translate}}</h5>
+                                <p>{{'upload-size-type' | translate}}</p>
+                                <div class="form-group select-dp">
+                                    <input type="file" accept="image/*" (change)="onAccountStatementPicked($event)">
+                                </div>
+                                <div class="form-group" *ngIf="accountStatement">
+                                    <img [src]="accountStatement || ''" alt="" srcset="" height="150px" width="150px">
+                                </div>
+                                <!-- <div>
+                                    <button type="button" mat-raised-button class="  grad-css" style="color: #fff;">Choose File</button>
+                                </div> -->
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-12 float-right">
+                        <button type="button" mat-raised-button [ngClass]="{'grad-css': createBankAccountForm.valid}" [disabled]="!createBankAccountForm.valid" (click)="createAccount()">{{'create-acc' | translate}}</button>
+                    </div>
+                </mat-expansion-panel>
+
+            </mat-accordion>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="wrapper page-inner content-fixed">
+    <div class="conatiner m-auto buy-sell-box box-shadow">
+        <mat-tab-group>
+            <mat-tab label="Buy" class="m-20">
+                <div class=" text-center mt-2">
+                    <div class="bank-amount" *ngFor="let item of fiatCurrency">
+                        <mat-label>Bank</mat-label>
+                        <p>€ {{item.balance}}</p>
+                    </div>
+
+                    <div class="currency-btn">
+                        <h4>Currency</h4>
+                        <ng-container *ngFor="let item of tradeCurrency">
+                            <button *ngIf="item.currency.buySellStatus" mat-raised-button class="grad-css mr-1 ml-1 mt-2" (click)="buyCrypto(item)">
+                                <img [src]="serverUrl+item.logo" alt="" width="25px">{{item.symbol}}
+                            </button>
+                        </ng-container>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        Amount (Min € 25)
+                    </div>
+
+                    <div class="amount">
+
+                        <form [formGroup]="buyCryptoForm">
+                            <mat-form-field class=" mt-10 ml-2">
+                                <span matPrefix>
+                                    <img src="../../../../../assets/images/currency-icons/euro-logo.png" class="mr-2" width="25px">
+                                </span>
+                                <input type="text" matInput formControlName="euroAmount" name="euroAmountInCrypto" [(ngModel)]="euroAmountInCrypto" placeholder="Euro Amount" (keyup)="convertEuroToCrypto($event.target.value)">
+                                <mat-error *ngIf="buyCryptoControl.euroAmount.touched && buyCryptoControl.euroAmount.errors">
+                                    <mat-error *ngIf="buyCryptoControl.euroAmount.errors.required">
+                                        {{'req-amount' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="buyCryptoControl.euroAmount.errors.pattern">
+                                        {{'invalid-amount' | translate}}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+
+                            <mat-form-field class=" mt-10 mr-2">
+                                <span matPrefix><img [src]="buycryptoImage" alt="" class="mr-2" width="25px"></span>
+                                <input type="text" matInput placeholder="Crypto Amount" formControlName="cryptoQuantity" name="cryptoAmountInEuro" [(ngModel)]="cryptoAmountInEuro" (keyup)="convertCryptoToEuro($event.target.value)">
+                                <mat-error *ngIf="buyCryptoControl.cryptoQuantity.touched && buyCryptoControl.cryptoQuantity.errors">
+                                    <mat-error *ngIf="buyCryptoControl.cryptoQuantity.errors.required">
+                                        {{'req-amount' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="buyCryptoControl.cryptoQuantity.errors.pattern">
+                                        {{'invalid-amount' | translate}}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </form>
+
+                    </div>
+
+                    <div class="crypto-amount ">
+                        <mat-label>Buy Rate: </mat-label>
+                        <p>€ {{buyCryptoPrice}} = 1 {{symbol}}</p>
+                    </div>
+
+
+                    <div class="buy-btn mt-16">
+                        <span matTooltip="Your KYC is not verified" [matTooltipDisabled]="userVerified"><button mat-raised-button [ngClass]="{'grad-css': buyCryptoForm.valid && userVerified === true}" [disabled]="buyCryptoForm.invalid || userVerified === false" (click)="buyCryptoFromTrade()">Buy {{symbol}} </button></span>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        The transaction will reflect on on your Trade Account Balances.
+                    </div>
+
+                </div>
+
+            </mat-tab>
+            <mat-tab label="Sell" class="m-20">
+                <div class="text-center mt-2">
+                    <div class="bank-amount">
+                        <mat-label>Crypto Trade Balance</mat-label>
+                        <p>{{symbol}} {{userCryptoTradeBalance}}</p>
+                    </div>
+
+                    <div class="currency-btn">
+                        <ng-container *ngFor="let item of tradeCurrency">
+                            <button *ngIf="item.currency.buySellStatus" mat-raised-button class="grad-css mr-1 ml-1 mt-2" (click)="sellCrypto(item)">
+                                <img [src]="serverUrl+item.logo" alt="" width="25px">{{item.symbol}}
+                            </button>
+                        </ng-container>
+                    </div>
+
+
+                    <div class="text-center mt-2">
+                        Amount (Min € 25)
+                    </div>
+
+                    <form [formGroup]="sellCryptoForm">
+                        <div class="amount">
+
+                            <mat-form-field class=" mt-10 ml-2">
+                                <span matPrefix>
+                                    <img [src]="sellcryptoImage" alt="" class="mr-2" width="25px">
+                                </span>
+                                <input type="text" matInput placeholder="Crypto Amount" formControlName="cryptoAmount" name="cryptoAmountInEuroSell" [(ngModel)]="cryptoAmountInEuroSell" (keyup)="convertCryptoToEuroForSell($event.target.value)">
+                                <mat-error *ngIf="sellCryptoControl.cryptoAmount.touched && sellCryptoControl.cryptoAmount.errors">
+                                    <mat-error *ngIf="sellCryptoControl.cryptoAmount.errors.required">
+                                        {{'req-amount' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="sellCryptoControl.cryptoAmount.errors.pattern">
+                                        {{'invalid-amount' | translate}}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field class=" mt-10 mr-2">
+                                <span matPrefix>
+                                    <img src="../../../../../assets/images/currency-icons/euro-logo.png" class="mr-2" width="25px">
+                                </span>
+                                <input type="text" matInput formControlName="euroQuantity" name="euroAmountInCryptoSell" [(ngModel)]="euroAmountInCryptoSell" placeholder="Euro Amount" (keyup)="convertEuroToCryptoSell($event.target.value)">
+                                <mat-error *ngIf="sellCryptoControl.euroQuantity.touched && sellCryptoControl.euroQuantity.errors">
+                                    <mat-error *ngIf="sellCryptoControl.euroQuantity.errors.required">
+                                        {{'req-amount' | translate}}
+                                    </mat-error>
+                                    <mat-error *ngIf="sellCryptoControl.euroQuantity.errors.pattern">
+                                        {{'invalid-amount' | translate}}
+                                    </mat-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </form>
+
+                    <div class="crypto-amount ">
+                        <mat-label>Sell Rate: </mat-label>
+                        <p>1 {{symbol}} = € {{sellCryptoPrice}}</p>
+                    </div>
+
+
+                    <div class="buy-btn mt-16">
+                        <span matTooltip="Your KYC is not verified" [matTooltipDisabled]="userVerified === true"><button mat-raised-button class="" (click)="sellCryptoFromTrade()" [ngClass]="{'grad-css': sellCryptoForm.valid && userVerified === true}" [disabled]="sellCryptoForm.invalid || userVerified === false">Sell {{symbol}} </button></span>
+                    </div>
+
+                    <div class="text-center mt-2">
+                        The transaction will reflect on on your Fiat Account Balances.
+                    </div>
+
+                </div>
+            </mat-tab>
+
+        </mat-tab-group>
+    </div>
+</div>

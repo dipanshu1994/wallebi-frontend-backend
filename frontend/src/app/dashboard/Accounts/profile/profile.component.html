@@ -1,0 +1,256 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="form-group select-dp">
+                    <img [attr.src]="profileImage || ''" style="width: 100%; height: 100%;">
+                    <div class="o-hide">
+                        <input type="file" accept="image/*" class="o-hide1" (change)="onPicProfile($event)">
+                        <mat-icon>camera_alt</mat-icon>
+
+                        <div style="font-size: 13px">{{'update' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default   mt-16">
+
+                <mat-accordion>
+
+
+                    <mat-expansion-panel class="mt-10" (opened)="openProfile()">
+                        <mat-expansion-panel-header matRipple>
+                            <mat-panel-title>
+                                {{'profile-status' | translate}}
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6"> <span class="">{{'personal-account' | translate}}</span></div>
+
+                            <div class="col-md-6 fa-pull-right">
+
+                                <span class="float-right margin-set" [ngStyle]="{'color':profileStatus === 'active' ? 'green' : 'red' }">{{profileStatus | titlecase}}</span>
+                            </div>
+                        </div>
+                        <mat-divider class="mt-3"></mat-divider>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <span class="">{{'language' | translate}}</span>
+                            </div>
+                            <div class="col-md-6 float-right">
+                                <mat-form-field class="wd-100">
+                                    <mat-select [(value)]="language" [(ngModel)]="language" placeholder=" {{'choose-lang' | translate}} " (ngModelChange)="onLanguageChange($event)">
+                                        <mat-option value="en">{{'en' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <mat-divider class="mt-3"></mat-divider>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <span class="">{{'currency' | translate}}</span>
+                            </div>
+                            <div class="col-md-6 float-right">
+                                <mat-form-field class="wd-100">
+                                    <mat-select [(value)]="currency" [(ngModel)]="currency" (ngModelChange)="onCurrencyChange($event)" placeholder="{{'choose-currency' | translate}}">
+                                        <mat-option value="Euro">{{'eur' | translate}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="mt-10" (opened)="openIdentification()">
+                        <mat-expansion-panel-header matRipple>
+                            <mat-panel-title>
+                                {{'id-kyc' | translate}}
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6"> <span class="">{{'kyc-status' | translate}}</span></div>
+                            <div class="col-md-6 fa-pull-right">
+
+                                <span class="float-right margin-set" [ngStyle]="{'color':kycStatus === 'verified' ? 'green' : 'red' }">{{kycStatus | titlecase}}</span>
+                            </div>
+                        </div>
+                        <mat-divider class="mt-3"></mat-divider>
+                        <div class="row mt-3">
+                            <div class="col-md-6"> <span class="">{{'doc-number' | translate}}</span></div>
+                            <div class="col-md-6 fa-pull-right">
+
+                                <span class="float-right">{{documentNumber}}</span>
+                            </div>
+                        </div>
+                        <mat-divider class="mt-3"></mat-divider>
+                        <div class="row mt-3">
+                            <div class="col-md-6"> <span class="">{{'issue-country' | translate}}</span></div>
+                            <div class="col-md-6 fa-pull-right">
+
+                                <span class="float-right">{{issuerCountry}}</span>
+                            </div>
+                        </div>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="mt-10" (opened)="openPersonal()">
+                        <mat-expansion-panel-header matRipple>
+                            <mat-panel-title>
+                                {{'personal-details' | translate}}
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput name="firstName" [(ngModel)]="firstName" placeholder="{{'firstname' | translate}}" [disabled]="defaultState">
+
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput name="lastName" [(ngModel)]="lastName" placeholder="{{'lastname' | translate}}" [disabled]="defaultState">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput type="email" name="email" [(ngModel)]="email" placeholder="{{'email-address' | translate}}" [disabled]="defaultState">
+
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-form-field class="wd-100 mt-10">
+                                    <input matInput type="tel" name="phone" [(ngModel)]="phone" placeholder="{{'phone-number' | translate}}" [disabled]="defaultState">
+                                </mat-form-field>
+
+                            </div>
+                        </div>
+
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel class="mt-10" (opened)="openRegister()">
+                        <mat-expansion-panel-header matRipple>
+                            <mat-panel-title>
+                                {{'register-address' | translate}}
+                            </mat-panel-title>
+
+                        </mat-expansion-panel-header>
+                        <form [formGroup]="registerAddressForm">
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <input matInput formControlName="houseNo" [(ngModel)]="houseNo" placeholder="{{'house-no' | translate}}">
+                                        <mat-error *ngIf="personalControls.houseNo.touched && personalControls.houseNo.errors">
+                                            <mat-error *ngIf="personalControls.houseNo.errors.required">{{'req-house-no' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="personalControls.houseNo.errors.pattern">{{'invalid-house-no' | translate}}
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 fa-pull-right">
+
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <input matInput formControlName="street" [(ngModel)]="street" placeholder="{{'street' | translate}}">
+                                        <mat-error *ngIf="personalControls.street.touched && personalControls.street.errors">
+                                            <mat-error *ngIf="personalControls.street.errors.required">{{'req-street' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="personalControls.street.errors.pattern">{{'invalid-street' | translate}}
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <input matInput formControlName="city" [(ngModel)]="city" placeholder="{{'City' | translate}}">
+                                        <mat-error *ngIf="personalControls.city.touched && personalControls.city.errors">
+                                            <mat-error *ngIf="personalControls.city.errors.required">{{'req-city' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="personalControls.city.errors.pattern">{{'invalid-city' | translate}}
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6 fa-pull-right">
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <input matInput formControlName="district" [(ngModel)]="district" placeholder="{{'dist-state' | translate}}">
+                                        <mat-error *ngIf="personalControls.district.touched && personalControls.district.errors">
+                                            <mat-error *ngIf="personalControls.district.errors.required">{{'req-dist' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="personalControls.district.errors.pattern">{{'invalid-dist' | translate}}
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <input matInput formControlName="zipCode" [(ngModel)]="zipCode" placeholder="{{'zip' | translate}}">
+                                        <mat-error *ngIf="personalControls.zipCode.touched && personalControls.zipCode.errors">
+                                            <mat-error *ngIf="personalControls.zipCode.errors.required">{{'req-zip' | translate}}
+                                            </mat-error>
+                                            <mat-error *ngIf="personalControls.zipCode.errors.pattern">{{'invalid-zip' | translate}}
+                                            </mat-error>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="wd-100 mt-10">
+                                        <mat-select placeholder="{{'choose-issuer' | translate}}" formControlName="country" [(ngModel)]="country" [(value)]="country">
+                                            <mat-option *ngFor="let item of countryList" [value]="item.name">
+                                                {{item.name}}</mat-option>
+                                            <mat-error *ngIf="personalControls.country.touched && personalControls.country.errors">
+                                                <mat-error *ngIf="personalControls.country.errors.required">{{'req-country' | translate}}
+                                                </mat-error>
+                                            </mat-error>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row mt-10" *ngIf="!registerAddressState">
+                                <div class="col-md-12 text-center">
+                                    <h5>{{'upload-address-proof' | translate}}</h5>
+                                    <p>{{'upload-size-type' | translate}}</p>
+                                    <div class="form-group select-dp">
+                                        <input type="file" accept="image/*" (change)="onAddressPicked($event)">
+                                    </div>
+                                    <div class="form-group" *ngIf="addressPreview">
+                                        <img [src]="addressPreview || ''" alt="" srcset="" height="150px" width="150px">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="col-md-12">
+                            <button type="button" *ngIf="registerAddressState" mat-raised-button class=" float-right grad-css ml-3" style="color: #fff;" (click)="enableAddressForm()">{{'Edit' | translate}}</button>
+                            <button type="button" *ngIf="!registerAddressState" mat-raised-button class=" float-right ml-3" [ngClass]="{'grad-css': registerAddressForm.valid}" [disabled]="!registerAddressForm.valid" (click)="updateAddressrForm()">{{'Update' | translate}}</button>
+                            <button type="button" *ngIf="!registerAddressState" class=" float-right " mat-raised-button (click)="disableAddressForm()">{{'Cancel' | translate}}</button>
+                        </div>
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+            </div>
+
+        </div>
+    </div>
+</div>

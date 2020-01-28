@@ -1,0 +1,92 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="box-shadow p-3">
+                    <div class="" *ngIf="templateId">
+                        <button mat-raised-button class="mr-2" [routerLink]="['/new-email-template']"><mat-icon>add</mat-icon>Create</button>
+                    </div>
+                    <h2 class="mt-1">Email Template</h2>
+                    <div class="row">
+
+                        <form [formGroup]="newEmailTemplateForm">
+
+                            <div class="col-md-12">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="mailType" placeholder="Email Type">
+                                            <mat-error *ngIf="controls.mailType.touched && controls.mailType.errors">
+                                                <mat-error *ngIf="controls.mailType.errors.required">Email type is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="subject" placeholder="Subject in english">
+                                            <mat-error *ngIf="controls.subject.touched && controls.subject.errors">
+                                                <mat-error *ngIf="controls.subject.errors.required">Subject in english is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <ejs-richtexteditor formControlName="emailBody" [insertImageSettings]='insertImageSettings' [showCharCount]='true' autofocous="true" [toolbarSettings]='tools' placeholder="Enter email body in english"></ejs-richtexteditor>
+                                        <mat-error *ngIf="controls.emailBody.touched && controls.emailBody.errors">
+                                            <mat-error *ngIf="controls.emailBody.errors.required">Email body in english is required!</mat-error>
+                                        </mat-error>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="wd-100">
+                                            <input matInput formControlName="subjectFarsi" placeholder="موضوع به فارسی">
+                                            <mat-error *ngIf="controls.subjectFarsi.touched && controls.subjectFarsi.errors">
+                                                <mat-error *ngIf="controls.subjectFarsi.errors.required">Subject in persian is required!</mat-error>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-6">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <ejs-richtexteditor formControlName="emailBodyFarsi" [insertImageSettings]='insertImageSettings' [showCharCount]='true' autofocous="true" [toolbarSettings]='tools' placeholder="متن ایمیل را به زبان فارسی وارد کنید"></ejs-richtexteditor>
+                                        <mat-error *ngIf="controls.emailBodyFarsi.touched && controls.emailBodyFarsi.errors">
+                                            <mat-error *ngIf="controls.emailBodyFarsi.errors.required">Email body in persian is required!</mat-error>
+                                        </mat-error>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12 " style="text-align: right;">
+                                        <button mat-raised-button class="mr-2" [routerLink]="['/template-list']">Cancel</button>
+                                        <button *ngIf="!templateId" mat-raised-button [ngClass]="{'grad-css': newEmailTemplateForm.valid}" class="float-right" [disabled]="!newEmailTemplateForm.valid" (click)="addTemplate()">Create Template</button>
+                                        <button *ngIf="templateId" mat-raised-button [ngClass]="{'grad-css': newEmailTemplateForm.valid}" class="float-right" [disabled]="!newEmailTemplateForm.valid" (click)="updateTemplate()">Update Template</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

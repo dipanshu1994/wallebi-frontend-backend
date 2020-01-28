@@ -1,0 +1,83 @@
+<div class="payement-successful-div" *ngIf="success">
+    <div class="box-shadow container br-10 custom-padding card-wd">
+        <div class="payment-success text-center" *ngIf="success === '1'">
+            <img src="../../assets/images/success.png" class="success-img">
+        </div>
+        <div class="payment-successful-heading text-center" *ngIf="success === '1'">
+            <h1>Thank You! </h1>
+            <h3>Your Wallet Has Been credited.</h3>
+        </div>
+
+
+        <div class="payment-success text-center" *ngIf="success === '0'">
+            <img src="../../assets/images/cancel.png" class="success-img">
+        </div>
+        <div class="payment-successful-heading text-center" *ngIf="success === '0'">
+            <h1>Sorry </h1>
+            <h3>Your Payment Has Been unsuccessful.</h3>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div *ngIf="order">
+    <div class=" container mt-16">
+
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h1>Order Confirmation</h1>
+            </div>
+        </div>
+
+        <div class="row box-shadow br-10 mt-16  ">
+
+            <div class="col-md-6 text-center">
+                <h3 class=" color-gra ">Quantity</h3>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class=" ">{{quantity}}</p>
+            </div>
+        </div>
+        <div class="row box-shadow br-10 mt-16  ">
+
+            <div class="col-md-6 text-center">
+                <h3 class=" color-gra ">CurrencyRate</h3>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class=" ">{{currencyRate}}</p>
+            </div>
+        </div>
+
+        <div class="row box-shadow br-10 mt-16  ">
+
+            <div class="col-md-6 text-center">
+                <h3 class=" color-gra ">Current Price</h3>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class=" ">{{currentprice}}</p>
+            </div>
+        </div>
+
+
+        <div class="row box-shadow br-10 mt-16  ">
+
+            <div class="col-md-6 text-center">
+                <h3 class=" color-gra ">Commission</h3>
+            </div>
+            <div class="col-md-6 text-center">
+                <p class=" ">{{commission}} %</p>
+            </div>
+        </div>
+
+        <div class="col-md-12 text-center mt-16">
+            <button mat-raised-button class="grad-css" (click)="payNow()">Pay Now</button>
+        </div>
+
+
+
+    </div>
+</div>

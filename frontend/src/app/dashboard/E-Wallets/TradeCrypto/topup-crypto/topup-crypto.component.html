@@ -1,0 +1,173 @@
+<div>
+    <div class="recive-opt">
+        <button mat-icon-button class="close-btn" (click)="closeDilaog()">
+            <mat-icon class="close-icon-width">highlight_off</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="fiatTopup">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img [src]="logo" alt="stellar-image" class="top-img">
+            </div>
+            <form [formGroup]="fiatTopupForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="top-up-eur">€</span>
+                            <input type="text" matInput placeholder="{{'enter-amt' | translate}}" #value formControlName="fiatAmount">
+
+                            <mat-error *ngIf="fiatControl.fiatAmount.touched && fiatControl.fiatAmount.errors">
+                                <mat-error *ngIf="fiatControl.fiatAmount.errors.required">{{'req-amount' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="fiatControl.fiatAmount.errors.pattern">
+                                    {{'invalid-amount' | translate}}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                    <h4>{{'choose-currency' | translate}}</h4>
+                </div>
+
+                <div class="row">
+                    <div class="currency-width text-center col-md-4">
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/cny.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeCNY, value.value)">
+                            <span>
+                                <h5 class="curr-name" #currencyTypeCNY>CNY</h5>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="currency-width text-center col-md-4">
+
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/rub.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeRUB, value.value)">
+                            <h5 class="curr-name" #currencyTypeRUB>RUB</h5>
+                        </a>
+
+                    </div>
+                    <div class="currency-width text-center col-md-4">
+
+
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/jpy.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeJPY,value.value)">
+                            <h5 class="curr-name" #currencyTypeJPY>JPY</h5>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="currency-width text-center col-md-4">
+
+
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/aed.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeAED, value.value)">
+                            <h5 class="curr-name" #currencyTypeAED>AED</h5>
+                        </a>
+                    </div>
+                    <div class="currency-width text-center col-md-4">
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/try.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeTRY, value.value)">
+                            <h5 class="curr-name" #currencyTypeTRY>TRY</h5>
+                        </a>
+
+                    </div>
+                    <div class="currency-width text-center col-md-4">
+                        <a class="cp"><input type="text" placeholder="" class="opacity cust-wid">
+                            <img src="../../../../../assets/images/currency-icons/irr.png " class="currencies-bg" (click)="getCurrencyType(currencyTypeIRR, value.value)">
+                            <h5 class="curr-name" #currencyTypeIRR>IRR</h5>
+                        </a>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-md-12 text-center mt-5">
+
+                    <img [src]="imagePath" class="">
+                    <h5>{{currencyName}}</h5>
+
+                </div>
+
+
+
+                <div class="col-md-12 text-center mt-2">
+                    <span>{{'rate' | translate}}</span> <span>{{currencyExchangeRate}}</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>{{'total' | translate}}</span> <span>{{convertPrice}}</span>
+                </div>
+
+
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button [ngClass]="{'grad-css': fiatTopupForm.valid}" [disabled]="!fiatTopupForm.valid || disableButton" (click)="creditAmount()">{{'credit-acc' | translate}}</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div *ngIf="topup">
+    <div class="wrapper page-inner content-fixed">
+        <div class="conatiner w-100">
+            <div class="text-center">
+                <img [src]="logo" alt="stellar-image" class="otp-img">
+            </div>
+            <form [formGroup]="cryptoTradeForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <input type="text" matInput placeholder="{{'amount' | translate}}" formControlName="topUpamount" (keyup)="convertCryptoToEuro($event.target.value)">
+                            <span matSuffix class="curren-back">{{symbol}}</span>
+                            <mat-error *ngIf="topupCryptoControl.topUpamount.touched && topupCryptoControl.topUpamount.errors">
+                                <mat-error *ngIf="topupCryptoControl.topUpamount.errors.required">
+                                    {{'req-amount' | translate}}
+                                </mat-error>
+                                <mat-error *ngIf="topupCryptoControl.topUpamount.errors.pattern">
+                                    {{'invalid-amount' | translate}}
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field class="wd-100 mt-10">
+                            <span matPrefix class="eur-back">Euro &nbsp;</span>
+                            <input type="text" matInput placeholder="Euro" formControlName="cryptoValueInEuro" readonly [(ngModel)]="cryptoToEuro" value="{{cryptoToEuro | number:'1.1-2'}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center mt-5 mb-3">
+                    <button type="button" mat-raised-button [ngClass]="{'grad-css': !cryptoTradeForm.invalid}" [disabled]="cryptoTradeForm.invalid || disableButton" (click)="transferCryptoForTrade()">{{'transfer' | translate}}</button>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="col-md-12 text-center mt-5">
+                    <span>{{'current-bal' | translate}}</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>{{balance}} {{symbol}}</span>
+                </div>
+                <div class="col-md-12 text-center">
+                    <span>€ {{cryptoTradeBalanceInEuro}}</span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

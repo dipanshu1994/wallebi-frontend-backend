@@ -1,0 +1,229 @@
+<div class="wrapper page-inner content-fixed">
+
+    <div class="conatiner w-100">
+        <div class="panel panel-default   mt-16">
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title>
+                            {{'change-pass' | translate}}
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+
+                    <form [formGroup]="changePasswordForm">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 ">
+                                    <input type="password" matInput placeholder="{{'old-pass' | translate}}" formControlName="oldPassword" autocomplete="true">
+                                    <mat-error *ngIf="controls.oldPassword.touched && controls.oldPassword.errors">
+                                        <mat-error *ngIf="controls.oldPassword.errors.required">{{'req-old-pass' | translate}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6 fa-pull-right">
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 ">
+                                    <input [type]="hide ? 'password' : 'text'" matInput placeholder="{{'new-pass' | translate}}" formControlName="newPassword" onCopy="return false" onPaste="return false" autocomplete="" (change)="StorePassword($event)" [ngClass]="{ 'is-invalid': controls.newPassword.touched && controls.newPassword.errors }">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="controls.newPassword.touched && controls.newPassword.errors" class="invalid-feedback">
+                                        <mat-error *ngIf="controls.newPassword.errors.required">{{'req-password' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.newPassword.errors.pattern">{{'invalid-password' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.newPassword.touched && controls.newPassword.errors.pattern" class="passwordhint ">{{'exp-pass' | translate}} System@456978, systeM!456978
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6 fa-pull-right">
+
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <mat-form-field class="wd-100 ">
+                                    <input type="password" matInput placeholder="{{'c-new-pass' | translate}}" autocomplete="true" formControlName="confirmPassword" onCopy="return false" onPaste="return false" [pattern]="iPassword" (invalid)="GetInvalidMessage($event)" autocomplete='password'
+                                        placeholder="Confirm Password">
+                                    <mat-error *ngIf="controls.confirmPassword.touched && controls.confirmPassword.errors">
+                                        <mat-error *ngIf="controls.confirmPassword.errors.required">{{'c-password' | translate}}
+                                        </mat-error>
+                                        <mat-error *ngIf="controls.confirmPassword.errors.pattern">{{'not-match-cpass'}}
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-6 fa-pull-right">
+
+
+                            </div>
+                        </div>
+                    </form>
+                    <button type="button" class="mt-1" mat-raised-button [ngClass]="{'grad-css': changePasswordForm.valid}" [disabled]="!changePasswordForm.valid" (click)="updatePassword()">{{'change-pass' | translate}}</button>
+                    <div>
+                    </div>
+                </mat-expansion-panel>
+
+
+
+
+
+
+                <mat-expansion-panel class="mt-10 " (opened)="checkTwoFactorStatus()">
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title>
+                            {{'sms-two-factor' | translate}}
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 ">
+                                <input matInput name="userMobile" [(ngModel)]="userMobile" [ngModelOptions]="{standalone: true}" disabled placeholder="{{'reg-phone' | translate}}">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">{{'Login' | translate}}</span>
+                        </div>
+                        <form>
+                            <div class="col-md-6 fa-pull-right">
+                                <mat-slide-toggle name="isAuthy" [checked]="isAuthy" [(ngModel)]="isAuthy" (change)="enable2FALogin($event)"></mat-slide-toggle>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">{{'Withdraw' | translate}} </span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle name="isWithdrawAuthy" [checked]="isWithdrawAuthy" [(ngModel)]="isWithdrawAuthy" (change)="enable2FAWithdraw($event)"></mat-slide-toggle>
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">{{'change-pass' | translate}}</span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle name="isPasswordAuthy" [checked]="isPasswordAuthy" [(ngModel)]="isPasswordAuthy" (change)="enable2FAPasswordChange($event)"></mat-slide-toggle>
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">{{'trade-buy-sell' | translate}}</span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle name="isTradeAuthy" [checked]="isTradeAuthy" [(ngModel)]="isTradeAuthy" (change)="enable2FATrade($event)"></mat-slide-toggle>
+
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+
+
+
+
+
+
+                <mat-expansion-panel class="mt-10 ">
+                    <mat-expansion-panel-header matRipple>
+                        <mat-panel-title>
+                            {{'google-two-factor' | translate}}
+                        </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+
+                    <!-- <div class="row mt-3">
+                        <div class="col-md-6">
+                            <mat-form-field class="wd-100 ">
+                                <input matInput placeholder="Registered Mobile Number">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+
+
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">Login</span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle></mat-slide-toggle>
+
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">Withdraw </span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle></mat-slide-toggle>
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">Password Change</span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle></mat-slide-toggle>
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <span class="">Trade - Buy / Sell</span>
+                        </div>
+
+                        <div class="col-md-6 fa-pull-right">
+                            <mat-slide-toggle></mat-slide-toggle>
+
+                        </div>
+                    </div> -->
+
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+
+
+    </div>
+</div>

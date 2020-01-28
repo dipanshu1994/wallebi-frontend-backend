@@ -1,0 +1,28 @@
+::ng-deep.mat-tab-label.mat-tab-label-active:not(.mat-tab-disabled),
+::ng-deep.mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled) {
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(5, 110, 160, 1) 0%, rgba(1, 163, 226, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#056ea0', endColorstr='#01a3e2', GradientType=0);
+    color: #fff !important;
+}
+
+::ng-deep .mat-tab-label {
+    margin: 10px 0px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    min-width: 108px !important;
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: transparent;
+}
+
+::ng-deep .mat-tab-header.mat-tab-header {
+    border: none;
+}
+
+
+/* ::ng-deep button {
+    padding-left: 5px !important;
+} */

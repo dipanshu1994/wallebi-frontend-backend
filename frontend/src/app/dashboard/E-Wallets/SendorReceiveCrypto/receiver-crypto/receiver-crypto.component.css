@@ -1,0 +1,35 @@
+.word-break {
+    word-break: break-all;
+}
+
+@media print {
+    /* invert the display (show/hide) properties of the main */
+    /* aplication component and the printing component       */
+    .recive-opt {
+        display: none;
+    }
+    .mb-20 {
+        margin-bottom: 100px !important;
+    }
+    .text-center.pr-40.printImage img {
+        width: 550  px !important;
+    }
+    .printImage {
+        width: 350px !important;
+    }
+    .printqr {
+        width: 300px !important;
+        text-align: center !important;
+         
+    }
+    .print-font {
+        font-size: 40px
+    }
+   
+    h1 {
+        font-size: 18pt;
+    }
+    p {
+        font-size: 12pt;
+    }
+}
